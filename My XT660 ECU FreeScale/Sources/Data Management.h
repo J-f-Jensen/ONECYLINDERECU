@@ -2,14 +2,15 @@
 /**
 Copyright (c) 2008 Freescale Semiconductor
 Freescale Confidential Proprietary
-\file       SCI.h
-\brief      Serial Communication Interface functions
+\file       Data Management.h
+\brief      Data management definitions and function prototypes
 \author     Freescale Semiconductor
-\author     Guadalajara Applications Laboratory RTAC Americas
-\author     Abraham Tezmol
+\author     Jesse Beeker
 \version    0.1
-\date       19/02/2008
+\date       September/ 2008
 */
+
+/*******************************************************************************/
 /*******************************************************************************/
 /*                                                                             */
 /* All software, source code, included documentation, and any implied know-how */
@@ -45,70 +46,75 @@ Freescale Confidential Proprietary
 /*                                                                             */
 /*******************************************************************************/
 
-#ifndef __SCI_H        /*prevent duplicated includes*/
-#define __SCI_H
 
-/*-- Includes ----------------------------------------------------------------*/
-/** Application definitions */
 #include "Application Definitions.h"
 
-/** Variable types and common definitions */
-#include "typedefs.h"
-/** CPU common definitions */
-#include "CPU.h"
- /** Application definitions */
-#include "Application Definitions.h" 
+/** Data management Initialization */
+void Data_Management_Init(void);
 
-/*-- Types Definitions -------------------------------------------------------*/
+void Data_Management(void);
 
-/*-- Defines -----------------------------------------------------------------*/
-
-/* SCI definition defines */
-#define SCIBusClock             BUS_FREQ
-#define SCIBaudRate             SCI19200bps
-#define SCI_RX_MAX_SIZE         16
-#define SCI_TX_MAX_SIZE         32
-
-/* SCI Ports Definition for u8SCIPort */
-#define SCI_Port_0              0
-#define SCI_Port_1              1
+/*
+#pragma CODE_SEG __NEAR_SEG NON_BANKED
 
 
-/*-- Communication status defines --------------------------------------------*/
-#define SCI_COMM_OK                         0
-#define SCI_COMM_TX_BUSY                    1
-#define SCI_COMM_RX_OVERRUN                 2
-#define SCI_COMM_PORT_ERROR                 3
+  void interrupt Data_Management_Digitals();
+  void interrupt Data_Management_Analogs();
+#pragma CODE_SEG DEFAULT
+*/
 
-/*-- Macros ------------------------------------------------------------------*/
-#define SCI38400bps     (unsigned int)((unsigned long)(SCIBusClock) / (unsigned long)(614400))    //38400 * 16
-#define SCI19200bps     (unsigned int)((unsigned long)(SCIBusClock) / (unsigned long)(307200))    //19200 * 16
-#define SCI9600bps      (unsigned int)((unsigned long)(SCIBusClock) / (unsigned long)(153600))    // 9600 * 16
-#define SCI4800bps      (unsigned int)((unsigned long)(SCIBusClock) / (unsigned long)(76800))     // 4800 * 16
-/*-- Function Prototypes -----------------------------------------------------*/
+//Signals array
+extern const UINT8 signals_array[];
+//Signals array pointer
+extern UINT8 signals_pointer;
 
-#if HARDWARE == (EMULATOR | PROTOTYPE)
-//Not converted to S12P
-/** SCI Initalization */
-void vfnSCI_Init(UINT8 u8SCIPort);
-/** SCI Low-Level Byte Transmit function **/
-void vfnSCI_WriteTx(UINT8 u8SCIPort, UINT8 u8TxDataByte);
-/** SCI Byte read from receive buffer **/
-UINT8 u8SCI_ReadRx(UINT8 u8SCIPort);
-/** SCI Data bytes available from receive buffer **/
-UINT8 u8SCI_CheckRx(UINT8 u8SCIPort);
-/** Discard any incomming data on SCI receive buffer **/
-void vfnSER_ClearRx(UINT8 u8SCIPort);
 
-void vfn_SCI_Rx_Tasks(void);
-void vfn_SCI_Tx_Tasks(void);
+//Analog Data Variables
+
+#if HARDWARE == REFERENCE
+//Raw buffer of ADC results
+  #ifdef Analog_Data_8
+    extern unsigned char RAW_ADC[16];
+  #else
+    extern unsigned int RAW_ADC[16];
+  #endif
 #endif
 
-#pragma CODE_SEG __NEAR_SEG NON_BANKED
-/** SCI Low-Level Byte Receive function **/
-void interrupt SCI_Receive_Isr (void);
-#pragma CODE_SEG DEFAULT
+//Throttle Position Sensor
+#ifdef Analog_TPS
+  #ifdef Analog_Data_8
+  //8 bit TPS data
+  extern unsigned char Analog_TPS_Buf[Analog_TPS_Bufsize];
+  //Storage of the filtered data
+  extern unsigned char Analog_TPS_Filtered;
+  #else
+  //10 or 12 bit data
+  extern unsigned int Analog_TPS_Buf[Analog_TPS_Bufsize];
+  //Storage of the filtered data
+  extern unsigned int Analog_TPS_Filtered;
+  #endif
+//Current buffer index
+extern unsigned char Analog_TPS_Index;
+//Counter for measurement period
+extern unsigned char Analog_TPS_Counter;
+#endif
 
-/*******************************************************************************/
 
-#endif /* __SCI_H */
+
+//Digital Data Variables
+
+//Ignition Switch
+#ifdef IGNSW
+//Buffer for signal measurements
+extern unsigned char au8IGNSW_Data_Buffer[IGNSW_BUFFER_SIZE];
+//Storage of the filtered data
+extern unsigned char u8IGNSW_Filtered;
+//Current buffer index
+extern unsigned char u8IGNSW_Buffer_Counter;
+//Counter for measurement period
+extern unsigned char u8IGNSW_Counter;
+#endif
+
+
+
+

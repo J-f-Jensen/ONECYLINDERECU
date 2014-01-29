@@ -2,15 +2,14 @@
 /**
 Copyright (c) 2008 Freescale Semiconductor
 Freescale Confidential Proprietary
-\file       Engine Management.h
-\brief      Engine management definitions and function prototypes
+\file       CPU.h
+\brief      CPU initialization prototypes and definitions
 \author     Freescale Semiconductor
 \author     Guadalajara Applications Laboratory RTAC Americas
-\author     Jaime Orozco
-\version    0.1
-\date       September/ 2008
+\author     Abraham Tezmol
+\version    0.4
+\date       11/Feb/2008
 */
-/*******************************************************************************/
 /*******************************************************************************/
 /*                                                                             */
 /* All software, source code, included documentation, and any implied know-how */
@@ -46,57 +45,45 @@ Freescale Confidential Proprietary
 /*                                                                             */
 /*******************************************************************************/
 
-#include <hidef.h>
-/** Seabreeze Emulator Compilation Options */
 #include "Seabreeze_Emulator.h"
-/** S12X derivative information */
-#include __S12X_DERIVATIVE
-/** Variable types and common definitions */
-#include "typedefs.h"
 
-/** Application definitions */
-#include "Application Definitions.h"
+#ifndef _CPU_H
+#define _CPU_H
 
 
-/** Function prototypes */
+//for S12T64 device
+/*-- Defines -----------------------------------------------------------------*/
+/** System configuration definitions */
+#define BUS_FREQ        16000000        /** System Bus clock frequency */
+#define XTAL_FREQ       4000000         /** Xtal frequency */
 
-/** Resources initialization for engine management */
-void Engine_Management_Init(void);
+/*-- Macros ------------------------------------------------------------------*/
 
-/** Engine control: calculates the timing for spark and fuel pulses */
-void Engine_Management(void);
-
-
-/** Updates parameters to start fuel pulse 1 */
-void vfnFuel1_Start(UINT16 u16RPM, UINT16 u16LOAD);
-
-/** Calculates fuel pulse 1 width */
-void vfnFuel1_Pulse(UINT16 u16RPM, UINT16 u16LOAD);
-
-/** Low Level calculation for spark start angle */
-UINT16 u16Calc_Spark_Start(UINT16, UINT16, UINT16);
-
-/** Calculates spark 1 start angle */
-void vfnSpark1_Start(UINT16, UINT16);
-
-/** Calculates spark 1 dwell time */
-void vfnSpark1_Dwell(void);
+/** System clock related macros */
+/* BUS_FREQ = XTAL_FREQ * (SYNR+1) / ((REFDV+1)(2*POSTDIV))       */
+#define POSTDIV_VALUE   (POSTDIV_FACTOR-1)
+#define SYNR_VALUE      (SYNR_FACTOR-1)
+#define REFDV_VALUE     ((XTAL_FREQ*SYNR_FACTOR/BUS_FREQ)-1) 
+ 
+/** System Clock status definitions */      
+#define CLOCK_STATUS_OK                 0
+#define CLOCK_STATUS_PLL_LOCK_ERROR     1
+#define CLOCK_STATUS_SCM_ERROR          2
 
 
-#ifdef TWO_CYLINDER
+/*-- Function Prototypes -----------------------------------------------------*/
 
-/** Updates parameters to start fuel pulse 2 */
-void vfnFuel2_Start(UINT16 u16RPM, UINT16 u16LOAD);
+/** Othe CPU initalization parameters */
+void vfnCpu_init(void);
 
-/** Calculates fuel pulse 2 width */
-void vfnFuel2_Pulse(UINT16 u16RPM, UINT16 u16LOAD);
+/** System clock and PLL initialization */
+void vfnClock_Init(void);
 
-/** Calculates spark 1 start angle */
-void vfnSpark2_Start(UINT16 u16RPM, UINT16 u16LOAD);
+/** Clock Monitor Interrupt Service Routine */
+#pragma CODE_SEG __NEAR_SEG NON_BANKED
+void Clock_Monitor_Isr(void);
+#pragma CODE_SEG DEFAULT
 
-/** Calculates spark 1 dwell time */
-void vfnSpark2_Dwell(void);
-
-#endif
+#endif /* _CPU_H */
 
 /*******************************************************************************/

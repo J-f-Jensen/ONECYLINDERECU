@@ -88,8 +88,8 @@ void vfnCpu_init(void)
 
 /*******************************************************************************/
 /**
-* \brief    PLL initialization, Bus Clock @ 40MHz
-* \author   Abraham Tezmol
+* \brief    PLL initialization
+* \author   
 * \param    void
 * \return   void
 */
@@ -139,12 +139,15 @@ void vfnClock_Init(void)
   // 4 MHz oscillator, PLL freq = 32 MHz, 16 MHz bus, 
   //  divide by 16 for timer of 2/3 usec tic
   PLLCTL &= 0xBF;     // Turn off PLL so can change freq
-  SYNR = 0x08;        // set PLL/ Bus freq to 32 / 16 MHz
+  SYNR = 0x03;        // set PLL/ Bus freq to 32 / 16 MHz
   REFDV = 0x00;
   PLLCTL |= 0x40;     // Turn on PLL
   
-  // wait for PLL lock
+  // wait for PLL lock     
   while (!(CRGFLG & 0x08));
+  
+  // select PLL as clock
+  CLKSEL = 0x80;      
   
   //Bus frequency should be 16 MHz.
   

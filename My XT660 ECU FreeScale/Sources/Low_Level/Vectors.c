@@ -140,13 +140,9 @@ void (* near const vectors[])(void) @ 0xFF10 =  {
   Dummy_D_Isr,        /* 0x38  0xFF70 ivVxst1         */
   Dummy_D_Isr,        /* 0x39  0xFF72 ivVxst0         */
   Dummy_D_Isr,        /* 0x3A  0xFF74 ivVpit3         */
-  Data_Management_Analogs,        /* 0x3B  0xFF76 ivVpit2         */
-  Data_Management_Digitals,        /* 0x3C  0xFF78 ivVpit1         */
-  #if HARDWARE == (EMULATOR | PROTOTYPE)
-  Scheduler_PIT0_Isr, /* 0x3D  0xFF7A ivVpit0         */
-  #else if HARDWARE == REFERENCE
-  Dummy_D_Isr, /* 0x3D  0xFF7A ivVpit0         */
-  #endif
+  Dummy_D_Isr,        //Data_Management_Analogs,        /* 0x3B  0xFF76 ivVpit2         */
+  Dummy_D_Isr,        //Data_Management_Digitals,        /* 0x3C  0xFF78 ivVpit1         */
+  Dummy_D_Isr,        /* 0x3D  0xFF7A ivVpit0         */
   Dummy_D_Isr,        /* 0x3E  0xFF7C ivVu8Reserved65   */
   Dummy_D_Isr,        /* 0x3F  0xFF7E ivVapi          */
   Dummy_D_Isr,        /* 0x40  0xFF80 ivVlvi          */
@@ -192,7 +188,7 @@ void (* near const vectors[])(void) @ 0xFF10 =  {
   Dummy_D_Isr,        /* 0x68  0xFFD0 ivVu8Reserved22  */
   ATD0_conversion_complete,   /* 0x69  0xFFD2 ivVatd    */
   Dummy_D_Isr,        /* 0x6A  0xFFD4 ivVsci1         */
-  Dummy_D_Isr,        /* 0x6B  0xFFD6 ivVsci0         */
+  SCI0_Isr,           /* 0x6B  0xFFD6 ivVsci0         */
   Dummy_D_Isr,        /* 0x6C  0xFFD8 ivVspi0         */
   Dummy_D_Isr,        /* 0x6D  0xFFDA ivVtimpaie      */
   Dummy_D_Isr,        /* 0x6E  0xFFDC ivVtimpaaovf    */
@@ -205,11 +201,7 @@ void (* near const vectors[])(void) @ 0xFF10 =  {
   Spark1_Control_Isr, /* 0x75  0xFFEA ivVtimch2       */
   Crank_State_Machine_Isr,  /* 0x76  0xFFEC ivVtimch1       */
   Fuel1_Control_Isr,  /* 0x77  0xFFEE ivVtimch0       */
-  #if HARDWARE == (EMULATOR | PROTOTYPE)
-  Dummy_D_Isr,        /* 0x78  0xFFF0 ivVrti          */
-  #else if HARDWARE == REFERENCE
   Scheduler_RTI_Isr,        /* 0x78  0xFFF0 ivVrti          */
-  #endif
   Dummy_D_Isr,        /* 0x79  0xFFF2 ivVirq          */
   Dummy_D_Isr,        /* 0x7A  0xFFF4 ivVxirq         */
   Dummy_D_Isr,        /* 0x7B  0xFFF6 ivVswi          */

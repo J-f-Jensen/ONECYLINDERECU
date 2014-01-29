@@ -246,52 +246,6 @@ void Data_Management()
     #ifdef OPS        
         vfnOPS_Monitoring();      /* Oil pressure sensor */
     #endif   
-   
-
 }
 
-
-
-
-#pragma CODE_SEG __NEAR_SEG NON_BANKED
-void interrupt Data_Management_Analogs() {
-  #if HARDWARE == (EMULATOR | PROTOTYPE)
-    vfnADC_Start_Conversions();
-  
-    PITTF_PTF2 = 1;
-  #endif
-}
-#pragma CODE_SEG DEFAULT
-
-
-#pragma CODE_SEG __NEAR_SEG NON_BANKED
-void interrupt Data_Management_Digitals() {    
-  #if HARDWARE == (EMULATOR | PROTOTYPE)
-    #ifdef CLTCHSW        
-        vfnCLTCHSW_Monitoring();  /* Clutch switch */
-    #endif 
-    
-    #ifdef IGNSW        
-        vfnIGNSW_Monitoring();    /* Ignition switch */
-    #endif 
-    
-    #ifdef KICKSW         
-        vfnKICKSW_Monitoring();   /* Kickstand switch */
-    #endif 
-    
-    #ifdef ENGSTOPSW         
-        vfnENGSTOPSW_Monitoring();   /* Engine ENGSTOP switch */
-    #endif 
-        
-    #ifdef NGEARSW        
-        vfnNGEARSW_Monitoring();  /* Neutral gear switch */
-    #endif         
-    
-    #ifdef OPS        
-        vfnOPS_Monitoring();      /* Oil pressure sensor */
-    #endif   
-    
-    PITTF_PTF1 = 1;
-  #endif
-}
 #pragma CODE_SEG DEFAULT

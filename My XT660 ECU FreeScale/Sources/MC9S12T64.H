@@ -69,9 +69,12 @@ typedef unsigned long dlong[2];
 #define DDRE_DDRE6 DDRE_BIT6
 #define DDRE_DDRE7 DDRE_BIT7
 
+
 /*
-#define pPTT     ((volatile unsigned char*)(0x0240))
-#define pPTM     ((volatile unsigned char*)(0x0250))
+#define pPTT     ((volatile unsigned char*)(0x00E0))
+#define pPTP     ((volatile unsigned char*)(0x00F0))
+#define pDDRT    ((volatile unsigned char*)(0x00E2))
+#define pDDRP    ((volatile unsigned char*)(0x00F2))
 #define pTC0    ((volatile unsigned short*)(0x0050))
 #define pTC1    ((volatile unsigned short*)(0x0052))
 #define pTC2    ((volatile unsigned short*)(0x0054))
@@ -797,7 +800,7 @@ extern volatile PACTLSTR _PACTL @(REG_BASE + 0x00000060UL);
 #define PACTL_CLK_MASK                  12U
 #define PACTL_CLK_BITNUM                2U
 
-/*** PWME - PWM Enable Register; 0x000000E0 ***/
+/*** PWME - PWM Enable Register; 0x000000A0 ***/
 typedef union {
   byte Byte;
   struct {
@@ -816,7 +819,7 @@ typedef union {
     byte         :1;
   } MergedBits;
 } PWMESTR;
-extern volatile PWMESTR _PWME @(REG_BASE + 0x000000E0UL);
+extern volatile PWMESTR _PWME @(REG_BASE + 0x000000A0UL);
 #define PWME                            _PWME.Byte
 #define PWME_PWME0                      _PWME.Bits.PWME0
 #define PWME_PWME1                      _PWME.Bits.PWME1
@@ -836,7 +839,7 @@ extern volatile PWMESTR _PWME @(REG_BASE + 0x000000E0UL);
 #define PWME_PWME_BITNUM                0U
 
 
-/*** PWMPOL - PWM Polarity Register; 0x000000E1 ***/
+/*** PWMPOL - PWM Polarity Register; 0x000000A1 ***/
 typedef union {
   byte Byte;
   struct {
@@ -855,7 +858,7 @@ typedef union {
     byte         :1;
   } MergedBits;
 } PWMPOLSTR;
-extern volatile PWMPOLSTR _PWMPOL @(REG_BASE + 0x000000E1UL);
+extern volatile PWMPOLSTR _PWMPOL @(REG_BASE + 0x000000A1UL);
 #define PWMPOL                          _PWMPOL.Byte
 #define PWMPOL_PPOL0                    _PWMPOL.Bits.PPOL0
 #define PWMPOL_PPOL1                    _PWMPOL.Bits.PPOL1
@@ -875,7 +878,7 @@ extern volatile PWMPOLSTR _PWMPOL @(REG_BASE + 0x000000E1UL);
 #define PWMPOL_PPOL_BITNUM              0U
 
 
-/*** PWMCLK - PWM Clock Select Register; 0x000000E2 ***/
+/*** PWMCLK - PWM Clock Select Register; 0x000000A2 ***/
 typedef union {
   byte Byte;
   struct {
@@ -894,7 +897,7 @@ typedef union {
     byte         :1;
   } MergedBits;
 } PWMCLKSTR;
-extern volatile PWMCLKSTR _PWMCLK @(REG_BASE + 0x000000E2UL);
+extern volatile PWMCLKSTR _PWMCLK @(REG_BASE + 0x000000A2UL);
 #define PWMCLK                          _PWMCLK.Byte
 #define PWMCLK_PCLK0                    _PWMCLK.Bits.PCLK0
 #define PWMCLK_PCLK1                    _PWMCLK.Bits.PCLK1
@@ -914,7 +917,7 @@ extern volatile PWMCLKSTR _PWMCLK @(REG_BASE + 0x000000E2UL);
 #define PWMCLK_PCLK_BITNUM              0U
 
 
-/*** PWMPRCLK - PWM Prescale Clock Select Register; 0x000000E3 ***/
+/*** PWMPRCLK - PWM Prescale Clock Select Register; 0x000000A3 ***/
 typedef union {
   byte Byte;
   struct {
@@ -934,7 +937,7 @@ typedef union {
     byte         :1;
   } MergedBits;
 } PWMPRCLKSTR;
-extern volatile PWMPRCLKSTR _PWMPRCLK @(REG_BASE + 0x000000E3UL);
+extern volatile PWMPRCLKSTR _PWMPRCLK @(REG_BASE + 0x000000A3UL);
 #define PWMPRCLK                        _PWMPRCLK.Byte
 #define PWMPRCLK_PCKA0                  _PWMPRCLK.Bits.PCKA0
 #define PWMPRCLK_PCKA1                  _PWMPRCLK.Bits.PCKA1
@@ -957,7 +960,7 @@ extern volatile PWMPRCLKSTR _PWMPRCLK @(REG_BASE + 0x000000E3UL);
 #define PWMPRCLK_PCKB_BITNUM            4U
 
 
-/*** PWMCAE - PWM Center Align Enable Register; 0x000000E4 ***/
+/*** PWMCAE - PWM Center Align Enable Register; 0x000000A4 ***/
 typedef union {
   byte Byte;
   struct {
@@ -976,7 +979,7 @@ typedef union {
     byte         :1;
   } MergedBits;
 } PWMCAESTR;
-extern volatile PWMCAESTR _PWMCAE @(REG_BASE + 0x000000E4UL);
+extern volatile PWMCAESTR _PWMCAE @(REG_BASE + 0x000000A4UL);
 #define PWMCAE                          _PWMCAE.Byte
 #define PWMCAE_CAE0                     _PWMCAE.Bits.CAE0
 #define PWMCAE_CAE1                     _PWMCAE.Bits.CAE1
@@ -996,7 +999,7 @@ extern volatile PWMCAESTR _PWMCAE @(REG_BASE + 0x000000E4UL);
 #define PWMCAE_CAE_BITNUM               0U
 
 
-/*** PWMCTL - PWM Control Register; 0x000000E5 ***/
+/*** PWMCTL - PWM Control Register; 0x000000A5 ***/
 typedef union {
   byte Byte;
   struct {
@@ -1010,7 +1013,7 @@ typedef union {
     byte             :1; 
   } Bits;
 } PWMCTLSTR;
-extern volatile PWMCTLSTR _PWMCTL @(REG_BASE + 0x000000E5UL);
+extern volatile PWMCTLSTR _PWMCTL @(REG_BASE + 0x000000A5UL);
 #define PWMCTL                          _PWMCTL.Byte
 #define PWMCTL_PFRZ                     _PWMCTL.Bits.PFRZ
 #define PWMCTL_PSWAI                    _PWMCTL.Bits.PSWAI
@@ -1025,7 +1028,7 @@ extern volatile PWMCTLSTR _PWMCTL @(REG_BASE + 0x000000E5UL);
 #define PWMCTL_CON45_MASK               64U
 
 
-/*** PWMSCLA - PWM Scale A Register; 0x000000E8 ***/
+/*** PWMSCLA - PWM Scale A Register; 0x000000A8 ***/
 typedef union {
   byte Byte;
   struct {
@@ -1039,7 +1042,7 @@ typedef union {
     byte BIT7        :1;                                       /* PWM Scale A Bit 7 */
   } Bits;
 } PWMSCLASTR;
-extern volatile PWMSCLASTR _PWMSCLA @(REG_BASE + 0x000000E8UL);
+extern volatile PWMSCLASTR _PWMSCLA @(REG_BASE + 0x000000A8UL);
 #define PWMSCLA                         _PWMSCLA.Byte
 #define PWMSCLA_BIT0                    _PWMSCLA.Bits.BIT0
 #define PWMSCLA_BIT1                    _PWMSCLA.Bits.BIT1
@@ -1060,7 +1063,7 @@ extern volatile PWMSCLASTR _PWMSCLA @(REG_BASE + 0x000000E8UL);
 #define PWMSCLA_BIT7_MASK               128U
 
 
-/*** PWMSCLB - PWM Scale B Register; 0x000000E9 ***/
+/*** PWMSCLB - PWM Scale B Register; 0x000000A9 ***/
 typedef union {
   byte Byte;
   struct {
@@ -1074,7 +1077,7 @@ typedef union {
     byte BIT7        :1;                                       /* PWM Scale B Bit 7 */
   } Bits;
 } PWMSCLBSTR;
-extern volatile PWMSCLBSTR _PWMSCLB @(REG_BASE + 0x000000E9UL);
+extern volatile PWMSCLBSTR _PWMSCLB @(REG_BASE + 0x000000A9UL);
 #define PWMSCLB                         _PWMSCLB.Byte
 #define PWMSCLB_BIT0                    _PWMSCLB.Bits.BIT0
 #define PWMSCLB_BIT1                    _PWMSCLB.Bits.BIT1
@@ -1095,12 +1098,12 @@ extern volatile PWMSCLBSTR _PWMSCLB @(REG_BASE + 0x000000E9UL);
 #define PWMSCLB_BIT7_MASK               128U
 
 
-/*** PWMCNT01 - PWM Channel Counter 01 Register; 0x000000EC ***/
+/*** PWMCNT01 - PWM Channel Counter 01 Register; 0x000000AC ***/
 typedef union {
   word Word;
    /* Overlapped registers: */
   struct {
-    /*** PWMCNT0 - PWM Channel Counter 0 Register; 0x000000EC ***/
+    /*** PWMCNT0 - PWM Channel Counter 0 Register; 0x000000AC ***/
     union {
       byte Byte;
     } PWMCNT0STR;
@@ -1109,7 +1112,7 @@ typedef union {
     #define PWMCNT_ARR                  ((volatile byte *) &PWMCNT0)
     
 
-    /*** PWMCNT1 - PWM Channel Counter 1 Register; 0x000000ED ***/
+    /*** PWMCNT1 - PWM Channel Counter 1 Register; 0x000000AD ***/
     union {
       byte Byte;
     } PWMCNT1STR;
@@ -1118,23 +1121,23 @@ typedef union {
   } Overlap_STR;
 
 } PWMCNT01STR;
-extern volatile PWMCNT01STR _PWMCNT01 @(REG_BASE + 0x000000ECUL);
+extern volatile PWMCNT01STR _PWMCNT01 @(REG_BASE + 0x000000ACUL);
 #define PWMCNT01                        _PWMCNT01.Word
 
 
-/*** PWMCNT23 - PWM Channel Counter 23 Register; 0x000000EE ***/
+/*** PWMCNT23 - PWM Channel Counter 23 Register; 0x000000AE ***/
 typedef union {
   word Word;
    /* Overlapped registers: */
   struct {
-    /*** PWMCNT2 - PWM Channel Counter 2 Register; 0x000000EE ***/
+    /*** PWMCNT2 - PWM Channel Counter 2 Register; 0x000000AE ***/
     union {
       byte Byte;
     } PWMCNT2STR;
     #define PWMCNT2                     _PWMCNT23.Overlap_STR.PWMCNT2STR.Byte
     
 
-    /*** PWMCNT3 - PWM Channel Counter 3 Register; 0x000000EF ***/
+    /*** PWMCNT3 - PWM Channel Counter 3 Register; 0x000000AF ***/
     union {
       byte Byte;
     } PWMCNT3STR;
@@ -1143,23 +1146,23 @@ typedef union {
   } Overlap_STR;
 
 } PWMCNT23STR;
-extern volatile PWMCNT23STR _PWMCNT23 @(REG_BASE + 0x000000EEUL);
+extern volatile PWMCNT23STR _PWMCNT23 @(REG_BASE + 0x000000AEUL);
 #define PWMCNT23                        _PWMCNT23.Word
 
 
-/*** PWMCNT45 - PWM Channel Counter 45 Register; 0x000000F0 ***/
+/*** PWMCNT45 - PWM Channel Counter 45 Register; 0x000000B0 ***/
 typedef union {
   word Word;
    /* Overlapped registers: */
   struct {
-    /*** PWMCNT4 - PWM Channel Counter 4 Register; 0x000000F0 ***/
+    /*** PWMCNT4 - PWM Channel Counter 4 Register; 0x000000B0 ***/
     union {
       byte Byte;
     } PWMCNT4STR;
     #define PWMCNT4                     _PWMCNT45.Overlap_STR.PWMCNT4STR.Byte
     
 
-    /*** PWMCNT5 - PWM Channel Counter 5 Register; 0x000000F1 ***/
+    /*** PWMCNT5 - PWM Channel Counter 5 Register; 0x000000B1 ***/
     union {
       byte Byte;
     } PWMCNT5STR;
@@ -1168,16 +1171,38 @@ typedef union {
   } Overlap_STR;
 
 } PWMCNT45STR;
-extern volatile PWMCNT45STR _PWMCNT45 @(REG_BASE + 0x000000F0UL);
+extern volatile PWMCNT45STR _PWMCNT45 @(REG_BASE + 0x000000B0UL);
 #define PWMCNT45                        _PWMCNT45.Word
 
-
-/*** PWMPER01 - PWM Channel Period 01 Register; 0x000000F2 ***/
+/*** PWMCNT67 - PWM Channel Counter 67 Register; 0x000000B2 ***/
 typedef union {
   word Word;
    /* Overlapped registers: */
   struct {
-    /*** PWMPER0 - PWM Channel Period 0 Register; 0x000000F2 ***/
+    /*** PWMCNT6 - PWM Channel Counter 6 Register; 0x000000B2 ***/
+    union {
+      byte Byte;
+    } PWMCNT6STR;
+    #define PWMCNT6                     _PWMCNT67.Overlap_STR.PWMCNT6STR.Byte 
+
+    /*** PWMCNT7 - PWM Channel Counter 7 Register; 0x000000B3 ***/
+    union {
+      byte Byte;
+    } PWMCNT7STR;
+    #define PWMCNT7                     _PWMCNT67.Overlap_STR.PWMCNT7STR.Byte
+    
+  } Overlap_STR;
+
+} PWMCNT67STR;
+extern volatile PWMCNT67STR _PWMCNT67 @(REG_BASE + 0x000000B2UL);
+#define PWMCNT67                        _PWMCNT67.Word
+
+/*** PWMPER01 - PWM Channel Period 01 Register; 0x000000B4 ***/
+typedef union {
+  word Word;
+   /* Overlapped registers: */
+  struct {
+    /*** PWMPER0 - PWM Channel Period 0 Register; 0x000000B4 ***/
     union {
       byte Byte;
     } PWMPER0STR;
@@ -1186,7 +1211,7 @@ typedef union {
     #define PWMPER_ARR                  ((volatile byte *) &PWMPER0)
     
 
-    /*** PWMPER1 - PWM Channel Period 1 Register; 0x000000F3 ***/
+    /*** PWMPER1 - PWM Channel Period 1 Register; 0x000000B5 ***/
     union {
       byte Byte;
     } PWMPER1STR;
@@ -1195,23 +1220,23 @@ typedef union {
   } Overlap_STR;
 
 } PWMPER01STR;
-extern volatile PWMPER01STR _PWMPER01 @(REG_BASE + 0x000000F2UL);
+extern volatile PWMPER01STR _PWMPER01 @(REG_BASE + 0x000000B4UL);
 #define PWMPER01                        _PWMPER01.Word
 
 
-/*** PWMPER23 - PWM Channel Period 23 Register; 0x000000F4 ***/
+/*** PWMPER23 - PWM Channel Period 23 Register; 0x000000B6 ***/
 typedef union {
   word Word;
    /* Overlapped registers: */
   struct {
-    /*** PWMPER2 - PWM Channel Period 2 Register; 0x000000F4 ***/
+    /*** PWMPER2 - PWM Channel Period 2 Register; 0x000000B6 ***/
     union {
       byte Byte;
     } PWMPER2STR;
     #define PWMPER2                     _PWMPER23.Overlap_STR.PWMPER2STR.Byte
     
 
-    /*** PWMPER3 - PWM Channel Period 3 Register; 0x000000F5 ***/
+    /*** PWMPER3 - PWM Channel Period 3 Register; 0x000000B7 ***/
     union {
       byte Byte;
     } PWMPER3STR;
@@ -1220,23 +1245,23 @@ typedef union {
   } Overlap_STR;
 
 } PWMPER23STR;
-extern volatile PWMPER23STR _PWMPER23 @(REG_BASE + 0x000000F4UL);
+extern volatile PWMPER23STR _PWMPER23 @(REG_BASE + 0x000000B6UL);
 #define PWMPER23                        _PWMPER23.Word
 
 
-/*** PWMPER45 - PWM Channel Period 45 Register; 0x000000F6 ***/
+/*** PWMPER45 - PWM Channel Period 45 Register; 0x000000B8 ***/
 typedef union {
   word Word;
    /* Overlapped registers: */
   struct {
-    /*** PWMPER4 - PWM Channel Period 4 Register; 0x000000F6 ***/
+    /*** PWMPER4 - PWM Channel Period 4 Register; 0x000000B8 ***/
     union {
       byte Byte;
     } PWMPER4STR;
     #define PWMPER4                     _PWMPER45.Overlap_STR.PWMPER4STR.Byte
     
 
-    /*** PWMPER5 - PWM Channel Period 5 Register; 0x000000F7 ***/
+    /*** PWMPER5 - PWM Channel Period 5 Register; 0x000000B9 ***/
     union {
       byte Byte;
     } PWMPER5STR;
@@ -1245,16 +1270,39 @@ typedef union {
   } Overlap_STR;
 
 } PWMPER45STR;
-extern volatile PWMPER45STR _PWMPER45 @(REG_BASE + 0x000000F6UL);
+extern volatile PWMPER45STR _PWMPER45 @(REG_BASE + 0x000000B8UL);
 #define PWMPER45                        _PWMPER45.Word
 
-
-/*** PWMDTY01 - PWM Channel Duty 01 Register; 0x000000F8 ***/
+/*** PWMPER67 - PWM Channel Period 67 Register; 0x000000BA ***/
 typedef union {
   word Word;
    /* Overlapped registers: */
   struct {
-    /*** PWMDTY0 - PWM Channel Duty 0 Register; 0x000000F8 ***/
+    /*** PWMPER6 - PWM Channel Period 6 Register; 0x000000B8 ***/
+    union {
+      byte Byte;
+    } PWMPER6STR;
+    #define PWMPER6                     _PWMPER67.Overlap_STR.PWMPER6STR.Byte
+    
+
+    /*** PWMPER7 - PWM Channel Period 7 Register; 0x000000BA ***/
+    union {
+      byte Byte;
+    } PWMPER7STR;
+    #define PWMPER7                     _PWMPER67.Overlap_STR.PWMPER7STR.Byte
+    
+  } Overlap_STR;
+
+} PWMPER67STR;
+extern volatile PWMPER67STR _PWMPER67 @(REG_BASE + 0x000000BAUL);
+#define PWMPER67                        _PWMPER67.Word
+
+/*** PWMDTY01 - PWM Channel Duty 01 Register; 0x000000BC ***/
+typedef union {
+  word Word;
+   /* Overlapped registers: */
+  struct {
+    /*** PWMDTY0 - PWM Channel Duty 0 Register; 0x000000BC ***/
     union {
       byte Byte;
     } PWMDTY0STR;
@@ -1263,7 +1311,7 @@ typedef union {
     #define PWMDTY_ARR                  ((volatile byte *) &PWMDTY0)
     
 
-    /*** PWMDTY1 - PWM Channel Duty 1 Register; 0x000000F9 ***/
+    /*** PWMDTY1 - PWM Channel Duty 1 Register; 0x000000BD ***/
     union {
       byte Byte;
     } PWMDTY1STR;
@@ -1272,23 +1320,23 @@ typedef union {
   } Overlap_STR;
 
 } PWMDTY01STR;
-extern volatile PWMDTY01STR _PWMDTY01 @(REG_BASE + 0x000000F8UL);
+extern volatile PWMDTY01STR _PWMDTY01 @(REG_BASE + 0x000000BCUL);
 #define PWMDTY01                        _PWMDTY01.Word
 
 
-/*** PWMDTY23 - PWM Channel Duty 23 Register; 0x000000FA ***/
+/*** PWMDTY23 - PWM Channel Duty 23 Register; 0x000000BE ***/
 typedef union {
   word Word;
    /* Overlapped registers: */
   struct {
-    /*** PWMDTY2 - PWM Channel Duty 2 Register; 0x000000FA ***/
+    /*** PWMDTY2 - PWM Channel Duty 2 Register; 0x000000BE ***/
     union {
       byte Byte;
     } PWMDTY2STR;
     #define PWMDTY2                     _PWMDTY23.Overlap_STR.PWMDTY2STR.Byte
     
 
-    /*** PWMDTY3 - PWM Channel Duty 3 Register; 0x000000FB ***/
+    /*** PWMDTY3 - PWM Channel Duty 3 Register; 0x000000BF ***/
     union {
       byte Byte;
     } PWMDTY3STR;
@@ -1297,23 +1345,23 @@ typedef union {
   } Overlap_STR;
 
 } PWMDTY23STR;
-extern volatile PWMDTY23STR _PWMDTY23 @(REG_BASE + 0x000000FAUL);
+extern volatile PWMDTY23STR _PWMDTY23 @(REG_BASE + 0x000000BEUL);
 #define PWMDTY23                        _PWMDTY23.Word
 
 
-/*** PWMDTY45 - PWM Channel Duty 45 Register; 0x000000FC ***/
+/*** PWMDTY45 - PWM Channel Duty 45 Register; 0x000000C0 ***/
 typedef union {
   word Word;
    /* Overlapped registers: */
   struct {
-    /*** PWMDTY4 - PWM Channel Duty 4 Register; 0x000000FC ***/
+    /*** PWMDTY4 - PWM Channel Duty 4 Register; 0x000000C0 ***/
     union {
       byte Byte;
     } PWMDTY4STR;
     #define PWMDTY4                     _PWMDTY45.Overlap_STR.PWMDTY4STR.Byte
     
 
-    /*** PWMDTY5 - PWM Channel Duty 5 Register; 0x000000FD ***/
+    /*** PWMDTY5 - PWM Channel Duty 5 Register; 0x000000C1 ***/
     union {
       byte Byte;
     } PWMDTY5STR;
@@ -1322,11 +1370,35 @@ typedef union {
   } Overlap_STR;
 
 } PWMDTY45STR;
-extern volatile PWMDTY45STR _PWMDTY45 @(REG_BASE + 0x000000FCUL);
+extern volatile PWMDTY45STR _PWMDTY45 @(REG_BASE + 0x000000C0UL);
 #define PWMDTY45                        _PWMDTY45.Word
 
+/*** PWMDTY67 - PWM Channel Duty 67 Register; 0x000000C2 ***/
+typedef union {
+  word Word;
+   /* Overlapped registers: */
+  struct {
+    /*** PWMDTY6 - PWM Channel Duty 6 Register; 0x000000C2 ***/
+    union {
+      byte Byte;
+    } PWMDTY6STR;
+    #define PWMDTY6                     _PWMDTY67.Overlap_STR.PWMDTY6STR.Byte
+    
 
-/*** PWMSDN - PWM Shutdown Register; 0x000000FE ***/
+    /*** PWMDTY7 - PWM Channel Duty 7 Register; 0x000000C3 ***/
+    union {
+      byte Byte;
+    } PWMDTY7STR;
+    #define PWMDTY7                     _PWMDTY67.Overlap_STR.PWMDTY7STR.Byte
+    
+  } Overlap_STR;
+
+} PWMDTY67STR;
+extern volatile PWMDTY67STR _PWMDTY67 @(REG_BASE + 0x000000C2UL);
+#define PWMDTY67                        _PWMDTY67.Word
+
+
+/*** PWMSDN - PWM Shutdown Register; 0x000000C4 ***/
 typedef union {
   byte Byte;
   struct {
@@ -1340,7 +1412,7 @@ typedef union {
     byte PWMIF       :1;                                       /* PWM Interrupt Flag */
   } Bits;
 } PWMSDNSTR;
-extern volatile PWMSDNSTR _PWMSDN @(REG_BASE + 0x000000FEUL);
+extern volatile PWMSDNSTR _PWMSDN @(REG_BASE + 0x000000C4UL);
 #define PWMSDN                          _PWMSDN.Byte
 #define PWMSDN_PWM5ENA                  _PWMSDN.Bits.PWM5ENA
 #define PWMSDN_PWM5INL                  _PWMSDN.Bits.PWM5INL
@@ -1358,6 +1430,362 @@ extern volatile PWMSDNSTR _PWMSDN @(REG_BASE + 0x000000FEUL);
 #define PWMSDN_PWMIE_MASK               64U
 #define PWMSDN_PWMIF_MASK               128U
 
+/*** sPTT - Port T I/O Register; 0x000000E0 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sPTT0        :1;                                       /* Port T Bit 0 */
+    byte sPTT1        :1;                                       /* Port T Bit 1 */
+    byte sPTT2        :1;                                       /* Port T Bit 2 */
+    byte sPTT3        :1;                                       /* Port T Bit 3 */
+    byte sPTT4        :1;                                       /* Port T Bit 4 */
+    byte sPTT5        :1;                                       /* Port T Bit 5 */
+    byte sPTT6        :1;                                       /* Port T Bit 6 */
+    byte sPTT7        :1;                                       /* Port T Bit 7 */
+  } Bits;
+  struct {
+    byte grpsPTT  :8;
+  } MergedBits;
+} sPTTSTR;
+extern volatile sPTTSTR _sPTT @(REG_BASE + 0x000000E0);
+#define sPTT _sPTT.Byte
+#define sPTT_sPTT0 _sPTT.Bits.sPTT0
+#define sPTT_sPTT1 _sPTT.Bits.sPTT1
+#define sPTT_sPTT2 _sPTT.Bits.sPTT2
+#define sPTT_sPTT3 _sPTT.Bits.sPTT3
+#define sPTT_sPTT4 _sPTT.Bits.sPTT4
+#define sPTT_sPTT5 _sPTT.Bits.sPTT5
+#define sPTT_sPTT6 _sPTT.Bits.sPTT6
+#define sPTT_sPTT7 _sPTT.Bits.sPTT7
+#define sPTT_sPTT _sPTT.MergedBits.grpsPTT
 
+
+/*** sPTIT - Port T Input; 0x000000E1 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sPTIT0       :1;                                       /* Port T Bit 0 */
+    byte sPTIT1       :1;                                       /* Port T Bit 1 */
+    byte sPTIT2       :1;                                       /* Port T Bit 2 */
+    byte sPTIT3       :1;                                       /* Port T Bit 3 */
+    byte sPTIT4       :1;                                       /* Port T Bit 4 */
+    byte sPTIT5       :1;                                       /* Port T Bit 5 */
+    byte sPTIT6       :1;                                       /* Port T Bit 6 */
+    byte sPTIT7       :1;                                       /* Port T Bit 7 */
+  } Bits;
+  struct {
+    byte grpsPTIT :8;
+  } MergedBits;
+} sPTITSTR;
+extern volatile sPTITSTR _sPTIT @(REG_BASE + 0x000000E1);
+#define sPTIT _sPTIT.Byte
+#define sPTIT_sPTIT0 _sPTIT.Bits.sPTIT0
+#define sPTIT_sPTIT1 _sPTIT.Bits.sPTIT1
+#define sPTIT_sPTIT2 _sPTIT.Bits.sPTIT2
+#define sPTIT_sPTIT3 _sPTIT.Bits.sPTIT3
+#define sPTIT_sPTIT4 _sPTIT.Bits.sPTIT4
+#define sPTIT_sPTIT5 _sPTIT.Bits.sPTIT5
+#define sPTIT_sPTIT6 _sPTIT.Bits.sPTIT6
+#define sPTIT_sPTIT7 _sPTIT.Bits.sPTIT7
+#define sPTIT_sPTIT _sPTIT.MergedBits.grpsPTIT
+
+
+/*** sDDRT - Port T Data Direction Register; 0x000000E2 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sDDRT0       :1;                                       /* Data Direction Port T Bit 0 */
+    byte sDDRT1       :1;                                       /* Data Direction Port T Bit 1 */
+    byte sDDRT2       :1;                                       /* Data Direction Port T Bit 2 */
+    byte sDDRT3       :1;                                       /* Data Direction Port T Bit 3 */
+    byte sDDRT4       :1;                                       /* Data Direction Port T Bit 4 */
+    byte sDDRT5       :1;                                       /* Data Direction Port T Bit 5 */
+    byte sDDRT6       :1;                                       /* Data Direction Port T Bit 6 */
+    byte sDDRT7       :1;                                       /* Data Direction Port T Bit 7 */
+  } Bits;
+  struct {
+    byte grpsDDRT :8;
+  } MergedBits;
+} sDDRTSTR;
+extern volatile sDDRTSTR _sDDRT @(REG_BASE + 0x000000E2);
+#define sDDRT _sDDRT.Byte
+#define sDDRT_sDDRT0 _sDDRT.Bits.sDDRT0
+#define sDDRT_sDDRT1 _sDDRT.Bits.sDDRT1
+#define sDDRT_sDDRT2 _sDDRT.Bits.sDDRT2
+#define sDDRT_sDDRT3 _sDDRT.Bits.sDDRT3
+#define sDDRT_sDDRT4 _sDDRT.Bits.sDDRT4
+#define sDDRT_sDDRT5 _sDDRT.Bits.sDDRT5
+#define sDDRT_sDDRT6 _sDDRT.Bits.sDDRT6
+#define sDDRT_sDDRT7 _sDDRT.Bits.sDDRT7
+#define sDDRT_sDDRT _sDDRT.MergedBits.grpsDDRT
+
+
+/*** sRDRT - Port T Reduced Drive Register; 0x000000E3 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sRDRT0       :1;                                       /* Reduced Drive Port T Bit 0 */
+    byte sRDRT1       :1;                                       /* Reduced Drive Port T Bit 1 */
+    byte sRDRT2       :1;                                       /* Reduced Drive Port T Bit 2 */
+    byte sRDRT3       :1;                                       /* Reduced Drive Port T Bit 3 */
+    byte sRDRT4       :1;                                       /* Reduced Drive Port T Bit 4 */
+    byte sRDRT5       :1;                                       /* Reduced Drive Port T Bit 5 */
+    byte sRDRT6       :1;                                       /* Reduced Drive Port T Bit 6 */
+    byte sRDRT7       :1;                                       /* Reduced Drive Port T Bit 7 */
+  } Bits;
+  struct {
+    byte grpsRDRT :8;
+  } MergedBits;
+} sRDRTSTR;
+extern volatile sRDRTSTR _sRDRT @(REG_BASE + 0x000000E3);
+#define sRDRT _sRDRT.Byte
+#define sRDRT_sRDRT0 _sRDRT.Bits.sRDRT0
+#define sRDRT_sRDRT1 _sRDRT.Bits.sRDRT1
+#define sRDRT_sRDRT2 _sRDRT.Bits.sRDRT2
+#define sRDRT_sRDRT3 _sRDRT.Bits.sRDRT3
+#define sRDRT_sRDRT4 _sRDRT.Bits.sRDRT4
+#define sRDRT_sRDRT5 _sRDRT.Bits.sRDRT5
+#define sRDRT_sRDRT6 _sRDRT.Bits.sRDRT6
+#define sRDRT_sRDRT7 _sRDRT.Bits.sRDRT7
+#define sRDRT_sRDRT _sRDRT.MergedBits.grpsRDRT
+
+
+/*** sPERT - Port T Pull Device Enable Register; 0x000000E4 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sPERT0       :1;                                       /* Pull Device Enable Port T Bit 0 */
+    byte sPERT1       :1;                                       /* Pull Device Enable Port T Bit 1 */
+    byte sPERT2       :1;                                       /* Pull Device Enable Port T Bit 2 */
+    byte sPERT3       :1;                                       /* Pull Device Enable Port T Bit 3 */
+    byte sPERT4       :1;                                       /* Pull Device Enable Port T Bit 4 */
+    byte sPERT5       :1;                                       /* Pull Device Enable Port T Bit 5 */
+    byte sPERT6       :1;                                       /* Pull Device Enable Port T Bit 6 */
+    byte sPERT7       :1;                                       /* Pull Device Enable Port T Bit 7 */
+  } Bits;
+  struct {
+    byte grpsPERT :8;
+  } MergedBits;
+} sPERTSTR;
+extern volatile sPERTSTR _sPERT @(REG_BASE + 0x000000E4);
+#define sPERT _sPERT.Byte
+#define sPERT_sPERT0 _sPERT.Bits.sPERT0
+#define sPERT_sPERT1 _sPERT.Bits.sPERT1
+#define sPERT_sPERT2 _sPERT.Bits.sPERT2
+#define sPERT_sPERT3 _sPERT.Bits.sPERT3
+#define sPERT_sPERT4 _sPERT.Bits.sPERT4
+#define sPERT_sPERT5 _sPERT.Bits.sPERT5
+#define sPERT_sPERT6 _sPERT.Bits.sPERT6
+#define sPERT_sPERT7 _sPERT.Bits.sPERT7
+#define sPERT_sPERT _sPERT.MergedBits.grpsPERT
+
+
+/*** sPPST - Port T Polarity Select Register; 0x000000E5 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sPPST0       :1;                                       /* Pull Select Port T Bit 0 */
+    byte sPPST1       :1;                                       /* Pull Select Port T Bit 1 */
+    byte sPPST2       :1;                                       /* Pull Select Port T Bit 2 */
+    byte sPPST3       :1;                                       /* Pull Select Port T Bit 3 */
+    byte sPPST4       :1;                                       /* Pull Select Port T Bit 4 */
+    byte sPPST5       :1;                                       /* Pull Select Port T Bit 5 */
+    byte sPPST6       :1;                                       /* Pull Select Port T Bit 6 */
+    byte sPPST7       :1;                                       /* Pull Select Port T Bit 7 */
+  } Bits;
+  struct {
+    byte grpsPPST :8;
+  } MergedBits;
+} sPPSTSTR;
+extern volatile sPPSTSTR _sPPST @(REG_BASE + 0x000000E5);
+#define sPPST _sPPST.Byte
+#define sPPST_sPPST0 _sPPST.Bits.sPPST0
+#define sPPST_sPPST1 _sPPST.Bits.sPPST1
+#define sPPST_sPPST2 _sPPST.Bits.sPPST2
+#define sPPST_sPPST3 _sPPST.Bits.sPPST3
+#define sPPST_sPPST4 _sPPST.Bits.sPPST4
+#define sPPST_sPPST5 _sPPST.Bits.sPPST5
+#define sPPST_sPPST6 _sPPST.Bits.sPPST6
+#define sPPST_sPPST7 _sPPST.Bits.sPPST7
+#define sPPST_sPPST _sPPST.MergedBits.grpsPPST
+
+/*** sPTP - Port P I/O Register; 0x000000F0 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sPTP0        :1;                                       /* Port P Bit 0 */
+    byte sPTP1        :1;                                       /* Port P Bit 1 */
+    byte sPTP2        :1;                                       /* Port P Bit 2 */
+    byte sPTP3        :1;                                       /* Port P Bit 3 */
+    byte sPTP4        :1;                                       /* Port P Bit 4 */
+    byte sPTP5        :1;                                       /* Port P Bit 5 */
+    byte sPTP6        :1;                                       /* Port P Bit 6 */
+    byte sPTP7        :1;                                       /* Port P Bit 7 */
+  } Bits;
+  struct {
+    byte grpsPTP  :8;
+  } MergedBits;
+} sPTPSTR;
+extern volatile sPTPSTR _sPTP @(REG_BASE + 0x000000F0);
+#define sPTP _sPTP.Byte
+#define sPTP_PTP0 _sPTP.Bits.sPTP0
+#define sPTP_PTP1 _sPTP.Bits.sPTP1
+#define sPTP_PTP2 _sPTP.Bits.sPTP2
+#define sPTP_PTP3 _sPTP.Bits.sPTP3
+#define sPTP_PTP4 _sPTP.Bits.sPTP4
+#define sPTP_PTP5 _sPTP.Bits.sPTP5
+#define sPTP_PTP6 _sPTP.Bits.sPTP6
+#define sPTP_PTP7 _sPTP.Bits.sPTP7
+#define sPTP_PTP _sPTP.MergedBits.grpsPTP
+
+
+/*** sPTIP - Port P Input; 0x000000F1 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sPTIP0       :1;                                       /* Port P Bit 0 */
+    byte sPTIP1       :1;                                       /* Port P Bit 1 */
+    byte sPTIP2       :1;                                       /* Port P Bit 2 */
+    byte sPTIP3       :1;                                       /* Port P Bit 3 */
+    byte sPTIP4       :1;                                       /* Port P Bit 4 */
+    byte sPTIP5       :1;                                       /* Port P Bit 5 */
+    byte sPTIP6       :1;                                       /* Port P Bit 6 */
+    byte sPTIP7       :1;                                       /* Port P Bit 7 */
+  } Bits;
+  struct {
+    byte grpsPTIP :8;
+  } MergedBits;
+} sPTIPSTR;
+extern volatile sPTIPSTR _sPTIP @(REG_BASE + 0x000000F1);
+#define sPTIP _sPTIP.Byte
+#define sPTIP_sPTIP0 _sPTIP.Bits.sPTIP0
+#define sPTIP_sPTIP1 _sPTIP.Bits.sPTIP1
+#define sPTIP_sPTIP2 _sPTIP.Bits.sPTIP2
+#define sPTIP_sPTIP3 _sPTIP.Bits.sPTIP3
+#define sPTIP_sPTIP4 _sPTIP.Bits.sPTIP4
+#define sPTIP_sPTIP5 _sPTIP.Bits.sPTIP5
+#define sPTIP_sPTIP6 _sPTIP.Bits.sPTIP6
+#define sPTIP_sPTIP7 _sPTIP.Bits.sPTIP7
+#define sPTIP_sPTIP _sPTIP.MergedBits.grpsPTIP
+
+
+/*** sDDRP - Port P Data Direction Register; 0x000000F2 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sDDRP0       :1;                                       /* Data Direction Port P Bit 0 */
+    byte sDDRP1       :1;                                       /* Data Direction Port P Bit 1 */
+    byte sDDRP2       :1;                                       /* Data Direction Port P Bit 2 */
+    byte sDDRP3       :1;                                       /* Data Direction Port P Bit 3 */
+    byte sDDRP4       :1;                                       /* Data Direction Port P Bit 4 */
+    byte sDDRP5       :1;                                       /* Data Direction Port P Bit 5 */
+    byte sDDRP6       :1;                                       /* Data Direction Port P Bit 6 */
+    byte sDDRP7       :1;                                       /* Data Direction Port P Bit 7 */
+  } Bits;
+  struct {
+    byte grpsDDRP :8;
+  } MergedBits;
+} sDDRPSTR;
+extern volatile sDDRPSTR _sDDRP @(REG_BASE + 0x000000F2);
+#define sDDRP _sDDRP.Byte
+#define sDDRP_sDDRP0 _sDDRP.Bits.sDDRP0
+#define sDDRP_sDDRP1 _sDDRP.Bits.sDDRP1
+#define sDDRP_sDDRP2 _sDDRP.Bits.sDDRP2
+#define sDDRP_sDDRP3 _sDDRP.Bits.sDDRP3
+#define sDDRP_sDDRP4 _sDDRP.Bits.sDDRP4
+#define sDDRP_sDDRP5 _sDDRP.Bits.sDDRP5
+#define sDDRP_sDDRP6 _sDDRP.Bits.sDDRP6
+#define sDDRP_sDDRP7 _sDDRP.Bits.sDDRP7
+#define sDDRP_sDDRP _sDDRP.MergedBits.grpsDDRP
+
+
+/*** sRDRP - Port P Reduced Drive Register; 0x000000F3 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sRDRP0       :1;                                       /* Reduced Drive Port P Bit 0 */
+    byte sRDRP1       :1;                                       /* Reduced Drive Port P Bit 1 */
+    byte sRDRP2       :1;                                       /* Reduced Drive Port P Bit 2 */
+    byte sRDRP3       :1;                                       /* Reduced Drive Port P Bit 3 */
+    byte sRDRP4       :1;                                       /* Reduced Drive Port P Bit 4 */
+    byte sRDRP5       :1;                                       /* Reduced Drive Port P Bit 5 */
+    byte sRDRP6       :1;                                       /* Reduced Drive Port P Bit 6 */
+    byte sRDRP7       :1;                                       /* Reduced Drive Port P Bit 7 */
+  } Bits;
+  struct {
+    byte grpsRDRP :8;
+  } MergedBits;
+} sRDRPSTR;
+extern volatile sRDRPSTR _sRDRP @(REG_BASE + 0x000000F3);
+#define sRDRP _sRDRP.Byte
+#define sRDRP_sRDRP0 _sRDRP.Bits.sRDRP0
+#define sRDRP_sRDRP1 _sRDRP.Bits.sRDRP1
+#define sRDRP_sRDRP2 _sRDRP.Bits.sRDRP2
+#define sRDRP_sRDRP3 _sRDRP.Bits.sRDRP3
+#define sRDRP_sRDRP4 _sRDRP.Bits.sRDRP4
+#define sRDRP_sRDRP5 _sRDRP.Bits.sRDRP5
+#define sRDRP_sRDRP6 _sRDRP.Bits.sRDRP6
+#define sRDRP_sRDRP7 _sRDRP.Bits.sRDRP7
+#define sRDRP_sRDRP _sRDRP.MergedBits.grpsRDRP
+
+
+/*** sPERP - Port P Pull Device Enable Register; 0x000000F4 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sPERP0       :1;                                       /* Pull Device Enable Port P Bit 0 */
+    byte sPERP1       :1;                                       /* Pull Device Enable Port P Bit 1 */
+    byte sPERP2       :1;                                       /* Pull Device Enable Port P Bit 2 */
+    byte sPERP3       :1;                                       /* Pull Device Enable Port P Bit 3 */
+    byte sPERP4       :1;                                       /* Pull Device Enable Port P Bit 4 */
+    byte sPERP5       :1;                                       /* Pull Device Enable Port P Bit 5 */
+    byte sPERP6       :1;                                       /* Pull Device Enable Port P Bit 6 */
+    byte sPERP7       :1;                                       /* Pull Device Enable Port P Bit 7 */
+  } Bits;
+  struct {
+    byte grpsPERP :8;
+  } MergedBits;
+} sPERPSTR;
+extern volatile sPERPSTR _sPERP @(REG_BASE + 0x000000F4);
+#define sPERP _sPERP.Byte
+#define sPERP_sPERP0 _sPERP.Bits.sPERP0
+#define sPERP_sPERP1 _sPERP.Bits.sPERP1
+#define sPERP_sPERP2 _sPERP.Bits.sPERP2
+#define sPERP_sPERP3 _sPERP.Bits.sPERP3
+#define sPERP_sPERP4 _sPERP.Bits.sPERP4
+#define sPERP_sPERP5 _sPERP.Bits.sPERP5
+#define sPERP_sPERP6 _sPERP.Bits.sPERP6
+#define sPERP_sPERP7 _sPERP.Bits.sPERP7
+#define sPERP_sPERP _sPERP.MergedBits.grpsPERP
+
+
+/*** sPPSP - Port P Polarity Select Register; 0x000000F5 ***/
+typedef union {
+  byte Byte;
+  struct {
+    byte sPPSP0       :1;                                       /* Pull Select Port P Bit 0 */
+    byte sPPSP1       :1;                                       /* Pull Select Port P Bit 1 */
+    byte sPPSP2       :1;                                       /* Pull Select Port P Bit 2 */
+    byte sPPSP3       :1;                                       /* Pull Select Port P Bit 3 */
+    byte sPPSP4       :1;                                       /* Pull Select Port P Bit 4 */
+    byte sPPSP5       :1;                                       /* Pull Select Port P Bit 5 */
+    byte sPPSP6       :1;                                       /* Pull Select Port P Bit 6 */
+    byte sPPSP7       :1;                                       /* Pull Select Port P Bit 7 */
+  } Bits;
+  struct {
+    byte grpsPPSP :8;
+  } MergedBits;
+} sPPSPSTR;
+extern volatile sPPSPSTR _sPPSP @(REG_BASE + 0x000000F5);
+#define sPPSP _sPPSP.Byte
+#define sPPSP_sPPSP0 _sPPSP.Bits.sPPSP0
+#define sPPSP_sPPSP1 _sPPSP.Bits.sPPSP1
+#define sPPSP_sPPSP2 _sPPSP.Bits.sPPSP2
+#define sPPSP_sPPSP3 _sPPSP.Bits.sPPSP3
+#define sPPSP_sPPSP4 _sPPSP.Bits.sPPSP4
+#define sPPSP_sPPSP5 _sPPSP.Bits.sPPSP5
+#define sPPSP_sPPSP6 _sPPSP.Bits.sPPSP6
+#define sPPSP_sPPSP7 _sPPSP.Bits.sPPSP7
+#define sPPSP_sPPSP _sPPSP.MergedBits.grpsPPSP
 
 #endif

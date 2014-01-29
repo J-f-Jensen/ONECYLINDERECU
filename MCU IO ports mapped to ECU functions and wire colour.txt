@@ -1,0 +1,35 @@
+Yamaha XT660 - 2007-> (O2 version) ECU
+FreeScale MC9S12T64 MCU
+
+Mappet as <MCU pin name> - <pin number> = <ECU function> 
+
+Analog signals:
+AN0 - 59 = TPS
+AN1 - 60 = MAP
+AN2 - 61 = O2 lambda raw
+AN3 - 62 = intake temp ATEMP
+AN4 - 63 = VPWR / VBAT
+AN5 - 64 = Lean angle CUT off
+AN6 - 65 = colant temp ETEMP
+
+Digital IO:
+PA2 - 47 = (L/R) Fuel pump/inj relay
+
+PB0 - 20 = (L/B) Input from Fuel inj. relay (19) (L/Y)
+PB1 - 21 = (L/W) Input Start switch signal (LOW when active)
+
+PB4 - 24 = (B/Y) Input - Relay to start switch - (there must be an output leg to?)
+PB5 - 25 = (P) Output - O2 Heater
+
+PT0/IOC0 - 79 = GND
+PT1/IOC1 - 80 = (Gy) Input - Signal from crankshaft position sensor
+PT2/IOC2 - 1 = (W) Input - Speed sensor (29) (Extern pullup)
+PT3/IOC3 - 2 = (O) Output - Ignition coil - On = high = Spark when going low 
+
+PT6/IOC6 - 5 = (R/B) Output - Injector - On = low (Extern pullup)
+PT7/IOC7 - 6 = Output - Injector2 - On = low (not used on the XT660) (Extern pullup)
+
+PP0/PWM0 - 12 = (Br/R) Air inductions system solenoid - On = high
+PP2/PWM2 - 14 = (G/Y) Radiator fan relay - On = high 
+PP4/PWM4 - 16 = (Y/B) Headlight relay - On = high
+
