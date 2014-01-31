@@ -45,8 +45,8 @@ Freescale Confidential Proprietary
 /*                                                                             */
 /*******************************************************************************/
 
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
+/** MCU definitions */
+#include "MCUdefinitions.h"
 /** CPU initialization prototypes and definitions */
 #include "Input_Output.h"
 /** Variable types and common definitions */

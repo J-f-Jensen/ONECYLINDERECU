@@ -50,8 +50,8 @@ Freescale Confidential Proprietary
 
 /*-- Includes ----------------------------------------------------------------*/
 
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
+/** MCU definitions */
+#include "MCUdefinitions.h"
 /** Serial Communication definitions */
 #include "SCI.h"
 /** SPI definitions and function prototypes */

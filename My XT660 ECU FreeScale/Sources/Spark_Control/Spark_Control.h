@@ -47,8 +47,8 @@ Freescale Confidential Proprietary
 /*******************************************************************************/
 
 #include <hidef.h>
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
+/** MCU definitions */
+#include "MCUdefinitions.h"
 /** Application definitions */
 #include "Application Definitions.h"
 /** Variable types and common definitions */

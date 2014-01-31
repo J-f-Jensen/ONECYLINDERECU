@@ -48,10 +48,10 @@ Freescale Confidential Proprietary
 /*******************************************************************************/
 
 #include <hidef.h>
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
-/** S12X derivative information */
-#include __S12X_DERIVATIVE
+/** MCU definitions */
+#include "MCUdefinitions.h"
+
+
 /** Variable types and common definitions */
 #include "typedefs.h"
 /** GPIO mapping */
@@ -103,12 +103,12 @@ Freescale Confidential Proprietary
 
 
 /** Timer channel assigned to crankshaft sensing */
-#define CRANKSHAFT_TIMER                TIMER_CHANNEL_H     
+#define CRANKSHAFT_TIMER                TIMER_CHANNEL_B     
 /** Timer channel assigned to crankshaft sensing */
 #define CRANKSHAFT_TIMER_COUNTER        TIMER_COUNTER     
 
 /** Timer channel interrupt enable/disable */
-#define CRANKSHAFT_INTERRUPT(SELECTOR)  CHANNEL_H_INTERRUPT(SELECTOR) 
+#define CRANKSHAFT_INTERRUPT(SELECTOR)  CHANNEL_B_INTERRUPT(SELECTOR) 
 
 /** Timer channel assigned to missing tooth detection*/
 #define GAP_TIMER                       TIMER_CHANNEL_F  
@@ -122,10 +122,10 @@ Freescale Confidential Proprietary
 
                             
 /* EVB LEDs */
-#if HARDWARE == EMULATOR
-#define SYNCH_LED   LED4     /* Synchronization signal */
-#define TDC_LED     LED5     /* Top dead center signal */
-#endif
+//#if HARDWARE == EMULATOR
+//#define SYNCH_LED   LED4     /* Synchronization signal */
+//#define TDC_LED     LED5     /* Top dead center signal */
+//#endif
 
 #define ON_STATE    LOW
 #define OFF_STATE   HIGH

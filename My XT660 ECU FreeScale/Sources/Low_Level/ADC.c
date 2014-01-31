@@ -45,10 +45,10 @@ Freescale Confidential Proprietary
 /*                                                                             */
 /*******************************************************************************/
 
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
-/** S12X derivative information */
-#include __S12X_DERIVATIVE
+/** MCU definitions */
+#include "MCUdefinitions.h"
+
+
 /* ADC routines prototypes */ 
 #include "ADC.h"
 /** Variable types and common definitions */
@@ -180,15 +180,13 @@ extern void vfnTILT_Monitoring(UINT8);
 #endif
 
 
-#if HARDWARE == REFERENCE
 //Raw buffer of ADC results
-  #ifdef Analog_Data_8
-    unsigned char RAW_ADC[16]={
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-  #else {
-    unsigned int RAW_ADC[16]={
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};         
-  #endif
+#ifdef Analog_Data_8
+  unsigned char RAW_ADC[16]={
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+#else {
+unsigned int RAW_ADC[16]={
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};         
 #endif
 
 UINT16 samples_array[signals_array_length];
@@ -437,7 +435,7 @@ void interrupt ATD0_conversion_complete(void){
       ATD0CTL5 = 0x30;
     
     
-    //clear flag
+      //clear flag
       ATD0STAT0_SCF = 1;
 }
 

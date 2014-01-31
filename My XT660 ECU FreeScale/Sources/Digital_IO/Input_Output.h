@@ -49,10 +49,10 @@ Freescale Confidential Proprietary
 #define _INPUT_OUTPUT_H
 
 /*-- Includes ----------------------------------------------------------------*/
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
-/** S12X derivative information */
-#include __S12X_DERIVATIVE
+/** MCU definitions */
+#include "MCUdefinitions.h"
+
+
 /** Software and hardware configuration */
 #include "Application Definitions.h"
 
@@ -153,21 +153,21 @@ Freescale Confidential Proprietary
 
 /** EN, Port P, Channel 3 */
 #define     EN   (PTP_PTP3)
-/** O2HIN, Port P, Channel 2 */
-#define     O2HIN        (PTP_PTP2)
+/** O2HIN, Port B, Channel 5 */
+#define     O2HIN        (PTB_PTB5)
 /** VLAMPIN, Port P, Channel 1 */
 #define     VLAMPIN      (PTP_PTP1)
 /** RIN2, Port P, Channel 0 */
 #define     RIN2        (PTP_PTP0)
-/** INJIN1, Port T, Channel 0 */
-#define     INJIN1      (PTT_PTT0)
-#define     INJ1_STAT   (PTIT_PTIT0)
+/** INJIN1, Port T, Channel 6 */
+#define     INJIN1      (sPTT_sPTT6)
+#define     INJ1_STAT   (sPTIT_sPTIT6)
 /** RIN1, Port T, Channel 1 */
 #define     RIN1      (PTT_PTT1)
 #define     RIN1_STAT   (PTIT_PTIT1)
-/** IGNIN1, Port T, Channel 2 */
-#define     IGNIN1      (PTT_PTT2)
-#define     IGN1_STAT   (PTIT_PTIT2)
+/** IGNIN1, Port T, Channel 3 */
+#define     IGNIN1      (sPTT_sPTT3)
+#define     IGN1_STAT   (sPTIT_sPTIT3)
 /** WDRFSH, Port T, Channel 4 */
 #define     WDRFSH      (PTT_PTT4)
 /** MCUTEST3, Port B, Channel 5 */

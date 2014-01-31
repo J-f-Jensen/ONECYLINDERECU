@@ -46,8 +46,8 @@ Freescale Confidential Proprietary
 /*                                                                             */
 /*******************************************************************************/
 
-/** Seabreeze Emulator Compilation Options */
-//#include "Seabreeze_Emulator.h"
+/** MCU definitions */
+//#include "MCUdefinitions.h"
 /** Engine management definitions and function prototypes */
 #include "Engine Management.h"
 /** Crank sensing definitions and function prototypes */
@@ -104,8 +104,18 @@ UINT16 u16Spark_Dwell_Offset = 0;
 
 /** Engine speed (RPM) */
 extern unsigned int Engine_Speed;
+
 /** Load */
-extern unsigned int LOAD;
+//extern unsigned int LOAD;
+//Engine Load parameter
+#ifdef Analog_Data_8
+  //Load is from 8 bit data
+  extern unsigned char LOAD;
+#else
+  //Load is from 10 or 12 bit data
+  extern unsigned int LOAD;
+#endif
+
 
 /** Modifier for spark angle */
 extern unsigned int u16Spark_Modifier;

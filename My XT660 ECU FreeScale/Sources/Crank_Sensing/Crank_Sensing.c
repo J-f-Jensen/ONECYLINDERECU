@@ -47,8 +47,8 @@ Freescale Confidential Proprietary
 /*                                                                             */
 /*******************************************************************************/
 
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
+/** MCU definitions */
+#include "MCUdefinitions.h"
 /** Crank sensing definitions and function prototypes */
 #include "Crank_Sensing.h"
 /** Spark control function prototypes */
@@ -324,9 +324,6 @@ void interrupt Crank_State_Machine_Isr(void)
                                                                       
                     /* Go to synchronization state */
                     u8Crank_State = SYNCHRONIZED;                                           
-                    #if HARDWARE == EMULATOR
-                    SYNCH_LED = OFF_STATE;                                                                                                                
-                    #endif
                 }    
                 else 
                 {          
@@ -343,9 +340,6 @@ void interrupt Crank_State_Machine_Isr(void)
                     {                                                
                         //Gap validation failed.  Continue testing for gap.
                         u8Crank_State = TESTING_FOR_GAP; 
-                        #if HARDWARE == EMULATOR
-                        SYNCH_LED = OFF_STATE;                             
-                        #endif
                     }                                                                                             
                 }
                 //Set up new tooth timeout.                                                                                                                                                                                        

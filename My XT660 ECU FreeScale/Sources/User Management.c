@@ -51,8 +51,8 @@ Freescale Confidential Proprietary
 /****Files to be included in build.  Modify based on system functionality.****/
 /** User Management header file */
 #include "User Management.h"
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
+/** MCU definitions */
+#include "MCUdefinitions.h"
 /** Variable types and common definitions */
 #include "typedefs.h"
 /** GPIO mapping */
@@ -1353,7 +1353,7 @@ void RPM_Calculate()
    //This is 32 bit math.  Need to optimize for an 8/16 bit solution. 
    if(DATA_COUNT){    
         Engine_Speed = TOOTH_SUM/DATA_COUNT;
-        Test_Value = Conv_Period_to_RPM(Engine_Speed);
+//        Test_Value = Conv_Period_to_RPM(Engine_Speed);
    }
    else
    {

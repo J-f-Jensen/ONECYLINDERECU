@@ -126,26 +126,6 @@ extern UINT8  signals_pointer;
            
 
    #ifdef MAP_TIME_BASED
-
-    #if HARDWARE == (EMULATOR | PROTOTYPE)
-         //PIT triggered collection so no need to worry about time base.
-
-         #if MAP_DATA_SIZE == 8
-            MAP_Data_Buffer[u8MAP_Buffer_Counter] = (UINT8)sample;//(UINT8)(u16fnADC_Read_One_Channel(MAP_ADC_CHANNEL));
-         #else 
-            MAP_Data_Buffer[u8MAP_Buffer_Counter] = sample;//u16fnADC_Read_One_Channel(MAP_ADC_CHANNEL);
-         #endif
-     
-         u8MAP_Buffer_Counter++;  
-         u8MAP_Collection_Rate_Counter = 0;
-  
-         if(u8MAP_Buffer_Counter >= MAP_BUFFER_SIZE) 
-         {
-            vfnMAP_ADC_Filter();  
-            u8MAP_Buffer_Counter = 0; 
-         }
-  
-    #else if HARDWARE == REFERENCE
       //Check for user defined timeout.
       if(u8MAP_Collection_Rate_Counter >= MAP_DATA_COLLECTION_RATE)
       {         
@@ -171,8 +151,6 @@ extern UINT8  signals_pointer;
          u8MAP_Collection_Rate_Counter++;
       }
   
-    #endif      
-  
    #endif
 
    #ifdef MAP_TOOTH_BASED
@@ -189,23 +167,12 @@ extern UINT8  signals_pointer;
           //This is the first sample for this tooth.
           //Store to the buffer.
          
-         #if HARDWARE ==(EMULATOR | PROTOTYPE)
-         //If PIT is uses we triggered at the right time and just get from ADC
-          #if MAP_DATA_SIZE == 8
-            MAP_Data_Buffer[u8MAP_Buffer_Counter] =(UINT8)sample;
-          #else 
-            MAP_Data_Buffer[u8MAP_Buffer_Counter] = sample;
-          #endif
-         
-         #else if HARDWARE == REFERENCE
           //Data comes from the raw buffer
           #if MAP_DATA_SIZE == 8
             MAP_Data_Buffer[u8MAP_Buffer_Counter] =(UINT8)RAW_ADC[MAP_ADC_CHANNEL];
           #else 
             MAP_Data_Buffer[u8MAP_Buffer_Counter] = RAW_ADC[MAP_ADC_CHANNEL];
           #endif
- 
-         #endif 
           
           //Increment the buffer counter.  Also limits the acceptance of data
           //to once per tooth.

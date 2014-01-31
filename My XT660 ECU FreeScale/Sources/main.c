@@ -46,11 +46,11 @@
 /*                                                                             */
 /*******************************************************************************/
 
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
-/** S12X derivative information */
-#include __S12X_DERIVATIVE
-#pragma LINK_INFO DERIVATIVE __S12X_LINK_DERIVATIVE
+/** MCU definitions */
+#include "MCUdefinitions.h"
+
+
+#pragma LINK_INFO DERIVATIVE "MCUdefinitions.h"
 
 /** Common defines and macros */
 #include <hidef.h>

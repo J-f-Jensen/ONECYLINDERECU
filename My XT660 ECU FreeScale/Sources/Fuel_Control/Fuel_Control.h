@@ -47,24 +47,24 @@ Freescale Confidential Proprietary
 /*******************************************************************************/
 
 /** Timer channel assigned to fuel pulse 1 */
-#define FUEL_PULSE1_TIMER                  TIMER_CHANNEL_A     
+#define FUEL_PULSE1_TIMER                  TIMER_CHANNEL_G     
 /** Timer channel interrupt enable/disable */      
-#define FUEL_PULSE1_INTERRUPT(SELECTOR)    CHANNEL_A_INTERRUPT(SELECTOR)
+#define FUEL_PULSE1_INTERRUPT(SELECTOR)    CHANNEL_G_INTERRUPT(SELECTOR)
 /* Set output on compare event for timer channel */   
-#define SET_FUEL1_ON_NEXT_STATE()          SET_ON_COMPARE_EVENT_A()
-#define CLEAR_FUEL1_ON_NEXT_STATE()        CLEAR_ON_COMPARE_EVENT_A()
+#define SET_FUEL1_ON_NEXT_STATE()          SET_ON_COMPARE_EVENT_G()
+#define CLEAR_FUEL1_ON_NEXT_STATE()        CLEAR_ON_COMPARE_EVENT_G()
 /** Force compare event */
-#define FUEL1_FORCE_EVENT()                CHANNEL_A_FORCE_EVENT()  
+#define FUEL1_FORCE_EVENT()                CHANNEL_G_FORCE_EVENT()  
 
 /** Timer channel assigned to fuel pulse 2 */
-#define FUEL_PULSE2_TIMER                  TIMER_CHANNEL_B    
+#define FUEL_PULSE2_TIMER                  TIMER_CHANNEL_H    
 /** Timer channel interrupt enable/disable */      
-#define FUEL_PULSE2_INTERRUPT(SELECTOR)    CHANNEL_B_INTERRUPT(SELECTOR)
+#define FUEL_PULSE2_INTERRUPT(SELECTOR)    CHANNEL_H_INTERRUPT(SELECTOR)
 /* Actions on compare event for timer channel */ 
-#define SET_FUEL2_ON_NEXT_STATE()          SET_ON_COMPARE_EVENT_B()
-#define CLEAR_FUEL2_ON_NEXT_STATE()        CLEAR_ON_COMPARE_EVENT_B()
+#define SET_FUEL2_ON_NEXT_STATE()          SET_ON_COMPARE_EVENT_H()
+#define CLEAR_FUEL2_ON_NEXT_STATE()        CLEAR_ON_COMPARE_EVENT_H()
 /** Force compare event */
-#define FUEL2_FORCE_EVENT()                CHANNEL_B_FORCE_EVENT()
+#define FUEL2_FORCE_EVENT()                CHANNEL_H_FORCE_EVENT()
 
 
 /* Definition of fuel controller states */

@@ -48,8 +48,8 @@ Copyright (c) 2008 Freescale Semiconductor
 #include <hidef.h>
 /** Variable types and common definitions */
 #include "typedefs.h"
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
+/** MCU definitions */
+#include "MCUdefinitions.h"
 /** Input Output definitions */
 #include "Input_Output.h"
 /** function prototypes */

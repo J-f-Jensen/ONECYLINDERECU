@@ -46,8 +46,8 @@ Freescale Confidential Proprietary
 /*                                                                             */
 /*******************************************************************************/
 
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
+/** MCU definitions */
+#include "MCUdefinitions.h"
 /** Crank sensing definitions and function prototypes */
 #include "Crank_Sensing.h"
 /** Spark control function prototypes */
@@ -822,7 +822,7 @@ UINT16 u16Interpolation(UINT16 u16Input_Data,
       
       }else{
         //The current array value is closer.  
-        u16Index = u16Index;
+//        u16Index = u16Index;
       }
     
     
@@ -843,13 +843,13 @@ UINT16 u16Interpolation(UINT16 u16Input_Data,
       
       }else{
         //The current array value is closer.  
-        u16Index = u16Index;
+//        u16Index = u16Index;
       }
     
     }else{
       //Data falls right on the index.  Rare event.
       //No adjustment is needed.  This is the index we want to use.  
-      u16Index = u16Index;
+//      u16Index = u16Index;
     }
 
     /* Return position of value closest to input data */
@@ -980,7 +980,7 @@ UINT16 u16Rev_Interpolation(UINT16 u16Input_Data,
       if(u16Index==u16Limit){
         //This is the end of the array.  Input data is greater than last element.
         //Use the last element.
-        u16Index == u16Limit;
+//        u16Index == u16Limit;
       
       }else if((au16Data_array[u16Index+1] - u16Input_Data)<(u16Input_Data-au16Data_array[u16Index])){
         //The next value higher in the array is closer.
@@ -988,7 +988,7 @@ UINT16 u16Rev_Interpolation(UINT16 u16Input_Data,
       
       }else{
         //The current array value is closer.  
-        u16Index = u16Index;
+//        u16Index = u16Index;
       }
     
     
@@ -1009,14 +1009,14 @@ UINT16 u16Rev_Interpolation(UINT16 u16Input_Data,
       
       }else{
         //The current array value is closer.  
-        u16Index = u16Index;
+//        u16Index = u16Index;
       }
     
     
     }else{
       //Data falls right on the index.  Rare event.
       //No adjustment is needed.  This is the index we want to use.  
-      u16Index = u16Index;
+//      u16Index = u16Index;
     }
     
     /* Next range will be approximately half of current range */

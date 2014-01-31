@@ -45,10 +45,10 @@ Freescale Confidential Proprietary
 /*                                                                             */
 /*******************************************************************************/
 
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
-/** S12X derivative information */
-#include __S12X_DERIVATIVE
+/** MCU definitions */
+#include "MCUdefinitions.h"
+
+
 /** Variable types and common definitions */
 #include "typedefs.h"
 /** PWM definitions */
@@ -61,7 +61,16 @@ static UINT16 u16Crank_Speed;
 UINT8 u8Duty_High;
 UINT8 u8Duty_Low;
     
-extern unsigned int LOAD;
+//extern unsigned int LOAD;
+//Engine Load parameter
+#ifdef Analog_Data_8
+  //Load is from 8 bit data
+  extern unsigned char LOAD;
+#else
+  //Load is from 10 or 12 bit data
+  extern unsigned int LOAD;
+#endif
+
 
 
 /*******************************************************************************/

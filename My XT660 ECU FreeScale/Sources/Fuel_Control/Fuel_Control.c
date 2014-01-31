@@ -46,8 +46,8 @@ Freescale Confidential Proprietary
 /*                                                                             */
 /*******************************************************************************/
 
-/** Seabreeze Emulator Compilation Options */
-#include "Seabreeze_Emulator.h"
+/** MCU definitions **/
+#include "MCUdefinitions.h"
 /** Crank sensing definitions and function prototypes */
 #include "Crank_Sensing.h"
 /** Spark control function prototypes */
@@ -130,21 +130,21 @@ void vfnSet_Fuel_Controller(UINT8 u8State_Request)
 {  
     if((u8State_Request == ENABLED) && (u8Fuel_Controller_Mode == OFF))
     {
-        /* Channel 0 enabled as output compare for fuel pulse 1 generation */            
+        /* Channel 6 enabled as output compare for fuel pulse 1 generation */            
         // Not supported in S12T64 OCPD_OCPD0 = 0;
-        TIOS_IOS0 = 1;     
-        TCTL2_OM0 = 1;  /* Clear on output compare event */  
-        TCTL2_OL0 = 0;
-        CFORC_FOC0 = 1; /* Force output event */
+        TIOS_IOS6 = 1;     
+        TCTL1_OM6 = 1;  /* Clear on output compare event */  
+        TCTL1_OL6 = 0;
+        CFORC_FOC6 = 1; /* Force output event */
                       
         #ifdef TWO_CYLINDER
                         
-        /*Channel 1 enabled as output compare for fuel pulse 2 generation */            
-        OCPD_OCPD1 = 0;
-        TIOS_IOS1 = 1;     
-        TCTL2_OM1 = 1;  /* Clear on output compare event */
-        TCTL2_OL1 = 0;
-        CFORC_FOC1 = 1; /* Force output event */ 
+        /*Channel 7 enabled as output compare for fuel pulse 2 generation */            
+        //OCPD_OCPD1 = 0;
+        TIOS_IOS7 = 1;     
+        TCTL1_OM7 = 1;  /* Clear on output compare event */
+        TCTL1_OL7 = 0;
+        CFORC_FOC7 = 1; /* Force output event */ 
                   
         #endif            
                  
@@ -186,8 +186,8 @@ void vfnDisable_Fuel1_Timer(void)
     
     /* Channel 0 disconnected from output compare module */             
     // Not supported in S12T64 OCPD_OCPD0 = 1;
-    TCTL2_OM0 = 0;  /* Used instead of OCPD_OCPD0 = 1; */  
-    TCTL2_OL0 = 0;  /* Used instead of OCPD_OCPD0 = 1; */
+    TCTL1_OM6 = 0;  /* Used instead of OCPD_OCPD0 = 1; */  
+    TCTL1_OL6 = 0;  /* Used instead of OCPD_OCPD0 = 1; */
     
     TIOS_IOS0 = 0; 
     

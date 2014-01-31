@@ -45,7 +45,7 @@ Freescale Confidential Proprietary
 /*                                                                             */
 /*******************************************************************************/
 
-#include "Seabreeze_Emulator.h"
+#include "MCUdefinitions.h"
 
 #ifndef _CPU_H
 #define _CPU_H

@@ -51,7 +51,6 @@ Freescale Confidential Proprietary
 /*-- Includes ----------------------------------------------------------------*/
 #include "mc9s12t64.h" //MCU definitions not in generic.h
 
-
 /*-- Types Definitions -------------------------------------------------------*/
 
 /*-- Defines -----------------------------------------------------------------*/
