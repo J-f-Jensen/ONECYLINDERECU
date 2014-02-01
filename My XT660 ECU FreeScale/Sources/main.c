@@ -102,10 +102,13 @@ UINT8 gu8SleepModeEnabled;
     /*-- While Power-savings mode is NOT requested --*/
     while (gu8SleepModeEnabled == 0)
     {
+        _FEED_COP(); /* feeds the dog */
+
         /* Execute Multi-thread round robin task scheduler */
         vfnTask_Scheduler();
     }
     
+    /* If we ever reach this then we have a problem */
     while(1);
 }
 /*******************************************************************************/

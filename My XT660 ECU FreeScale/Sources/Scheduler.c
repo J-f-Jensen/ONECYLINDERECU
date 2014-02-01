@@ -143,6 +143,7 @@ void vfnTask_Scheduler(void)
         gu8Scheduler_Thread_ID_Backup = gu8Scheduler_Thread_ID;
         
         EXECUTE_1MS_TASKS();
+        
         if (gu8Scheduler_Thread_ID == TASKS_100_MS)
         {
             EXECUTE_100MS_TASKS();
@@ -172,6 +173,7 @@ void vfnTask_Scheduler(void)
             gu8Scheduler_Thread_ID_Backup = gu8Scheduler_Thread_ID;
             
             EXECUTE_2MS_A_TASKS();
+            
             if (gu8Scheduler_Thread_ID == TASKS_50_MS)
             {
                 EXECUTE_50MS_TASKS();
@@ -201,6 +203,7 @@ void vfnTask_Scheduler(void)
                 gu8Scheduler_Thread_ID_Backup = gu8Scheduler_Thread_ID;
                 
                 EXECUTE_2MS_B_TASKS();
+                
                 if (gu8Scheduler_Thread_ID == TASKS_10_MS)
                 {
                     EXECUTE_10MS_TASKS();

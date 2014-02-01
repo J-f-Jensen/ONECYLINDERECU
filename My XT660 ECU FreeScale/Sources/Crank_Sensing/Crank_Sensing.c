@@ -187,19 +187,6 @@ void vfnInit_Crank_Sensing(void)
 
 void interrupt Crank_State_Machine_Isr(void)
 {                         
-    //TDC_LED = OFF_STATE; 
-    
-    //Test code
-    #if HARDWARE == EMULATOR
-    //Toggle TDC LED every tooth 
-    if(TDC_LED ==OFF_STATE){
-      TDC_LED =ON_STATE;
-    
-    }else{
-      TDC_LED=OFF_STATE;
-    }
-    #endif
-    
     /* Disable timeout interrupt */
     TIMEOUT_INTERRUPT(DISABLED);       
        
@@ -631,10 +618,6 @@ void interrupt Crank_State_Machine_Isr(void)
 
 void vfnGoTo_Crank_FirstEdge(void)
 {         
-    #if HARDWARE == EMULATOR
-    SYNCH_LED = OFF_STATE;
-    TDC_LED = OFF_STATE;        
-    #endif
     u8Engine_Rotation_Synchronization_counter = 0; 
     u8Crank_State = FIRST_EDGE;             
     
@@ -664,10 +647,7 @@ void  vfnGoTo_SYNCHRONIZED_4C(void){
   vfnSpark_4C_Convert();
   //Change Fuel parameters to 720 process                  
   vfnFuel_4C_Convert();
-  //Turn on Sync LED.  Usefull for timing analysis of state machine latency.                  
-  #if HARDWARE == EMULATOR
-  SYNCH_LED = ON_STATE;         
-  #endif
+
   //Change to the 4 cycle synchronization state.
   u8Crank_State = SYNCHRONIZED_4C; 
 }
@@ -695,10 +675,6 @@ UINT8 u8Calculate_Tooth_Period(void)
     //synchronization issue
     if(u16Current_Period < 700){
       //We have an issue
-      #if HARDWARE == EMULATOR
-      SYNCH_LED = !SYNCH_LED;
-      TDC_LED = OFF;
-      #endif
       //PTP_PTP3 = 0;
       _asm{
       NOP;
@@ -713,9 +689,6 @@ UINT8 u8Calculate_Tooth_Period(void)
       NOP;
 
       }
-      #if HARDWARE == EMULATOR
-      SYNCH_LED = !SYNCH_LED;
-      #endif
     }
     
     /* Validate tooth period against valid limits */            
@@ -936,8 +909,7 @@ void vfnIncrement_Teeth_Counter(void)
 #pragma CODE_SEG __NEAR_SEG NON_BANKED
 void interrupt Crank_Missing_Tooth_Isr(void)
 {    
-    //TDC_LED = ON_STATE;
-    
+   
     TIMEOUT_INTERRUPT(DISABLED);
                  
     u16Current_Tooth_Time = u16Previous_Tooth_Time + u16Previous_Period; 

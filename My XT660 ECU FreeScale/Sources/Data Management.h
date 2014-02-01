@@ -71,13 +71,11 @@ extern UINT8 signals_pointer;
 
 //Analog Data Variables
 
-#if HARDWARE == REFERENCE
 //Raw buffer of ADC results
-  #ifdef Analog_Data_8
-    extern unsigned char RAW_ADC[16];
-  #else
-    extern unsigned int RAW_ADC[16];
-  #endif
+#ifdef Analog_Data_8
+  extern unsigned char RAW_ADC[16];
+#else
+  extern unsigned int RAW_ADC[16];
 #endif
 
 //Throttle Position Sensor

@@ -56,15 +56,8 @@ Freescale Confidential Proprietary
 #include "SPI.h"
 /** ADC definitions and functions */
 #include "ADC.h"
-/** MC33810 definitions and functions */
-//#include "MC33810.h"
-/** MC33812 definitions and functions */
-//#include "MC33812.h"
-/** MC33932 definitions and functions */
-//#include "MC33932.h"
 /** Input Output macros and definitions */
 #include "Input_Output.h"
-
 /** Relays definitions and functions prototypes */
 #include "Relays.h"  
 
@@ -93,34 +86,14 @@ void vfnECU_Init(void)
     /* Perform SPI Initialization */
     //vfnSPI_Init();
     /* Perform SCI Initialization */
-    //vfnSCI_Init(SCI_Port_0);
+    vfnSCI_Init();
     /* Perform I/O configuration and Initialization */
     vfnInputs_Outputs_Init();
     /* Perform ADC initialization */
     vfnADC_Init();    
-    #ifdef SUITCASE_DEMO
-    /* PWM initial configuration for spinning crankshaft motor*/
-    vfnPWM_Init();
-    #endif
         
     /* Relays initialization */
-    vfnRelays_Initialization();  
-      
-    
-    #if HARDWARE == EMULATOR
-    /* Perform MC33810 initialization */
- //   vfMC33810_Init();  
-    /* Perform MC33932 initialization */
- //   vfInit_MC33932();  
- //   (void)u8M33932_Enable(MOTOR_1);
- //   (void)u8M33932_Enable(MOTOR_2);
-
-    #else if HARDWARE == (PROTOTYPE||REFERENCE)
-    /* Perform MC33812 initialization */
- //   vfMC33812_Init();
-      
-    #endif
-    
+    vfnRelays_Initialization();     
 }
 
 /*******************************************************************************/

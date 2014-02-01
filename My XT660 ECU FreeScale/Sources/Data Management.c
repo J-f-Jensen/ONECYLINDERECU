@@ -48,7 +48,6 @@ Freescale Confidential Proprietary
 
 /** ADC function prototypes */
 #include "ADC.h"
-
 /** Air temperature monitoring definitions */
 #include "ATEMP.h"
 /** Barometric air pressure monitoring definitions */

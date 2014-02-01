@@ -65,8 +65,6 @@ Freescale Confidential Proprietary
 #include "Fuel_Control.h"
 /** Crank sensing definitions and function prototypes */
 #include "Crank_Sensing.h"
-/** function prototypes */
-#include "Idle_Speed_Control.h"
 //** Relay control function prototypes */
 #include "Relays.h"
 //O2 Heater function prototypes
@@ -273,43 +271,6 @@ unsigned char Ignition2_Fault;
 //Fuel pump key on timeout
 UINT16 u16Fuel_Pump_Timeout; 
 
-//Idle speed motor variables
-//ISM control loop time
-unsigned int u16ISM_Timeout;
-//ISM zero status flag: zero not performed=0, zero performed=1
-unsigned char ISM_ZERO;
-//ISM state: OPENING, CLOSING, or STOPPED
-//extern UINT8 u8ISM_State;  
-//ISM current position
-//extern unsigned int u16Current_ISM_Position;
-//ISM range variable.  Maximum number of steps.
-unsigned int ISM_RANGE;
-//ISM range calibration varible.  Number of steps for full travel
-//Yamaha C3 has 500 steps
-unsigned int CAL_ISM_RANGE = 500;
-//ISM target speed
-unsigned int ISM_TARGET;
-//ISM target speed calibration variable;
-unsigned int CAL_ISM_TARGET = 1562; //2000 RPM
-//ISM maximum control speed
-unsigned int ISM_MAX_CONTROL;
-//Calibrated ISM maximum control speed
-unsigned int CAL_ISM_MAX_CONTROL = 1042; //3000 RPM
-//ISM minimum control speed
-unsigned int ISM_MIN_CONTROL;
-//Calibrated ISM minimum control speed
-unsigned int CAL_ISM_MIN_CONTROL = 3125; //1000 RPM
-//ISM Starting position
-unsigned int ISM_START;  
-//Calibrated ISM starting position
-unsigned int CAL_ISM_START = 250;
-//ISM controller position adjustment step size.
-unsigned int ISM_STEP;
-//ISM controller previous step direction
-unsigned char ISM_LAST_STEP;
-//ISM controller next step direction
-unsigned char ISM_NEXT_STEP;
-
 
 /****External Variables****/
 /* Array to store tooth period data for two engine revolutions */
@@ -318,15 +279,12 @@ unsigned char ISM_NEXT_STEP;
 #else
   extern unsigned int au16Prior_Periods[2 * NUMBER_OF_TEETH];
 #endif
+
 //Throttle position senser data
 #ifdef Analog_Data_8
 extern unsigned char TPS_Filtered;
 #else 
 extern unsigned short TPS_Filtered;
-#endif
-//Idle Speed Motor Position
-#ifdef ISM
-extern unsigned int u16Current_ISM_Position;
 #endif
 
 //O2 Heater functions
@@ -356,8 +314,6 @@ void User_Management_Init()
     TPS_HIGH = CAL_TPS_HIGH;
     //Initialize the fuel pump
     Fuel_Pump_Controller_Init();
-    //Initialize the Idle speed motor
-    //Idle_Speed_Controller_Init();
     
     //Enable the voltage regulator module on the scooter.  
     #if HARDWARE==REFERENCE
@@ -365,14 +321,6 @@ void User_Management_Init()
       vfnO2H_On();
     #endif
 
-    #if HARDWARE==PROTOTYPE
-      //Connected to O2Heater in Prototype module.
-      vfnO2H_On();
-    #endif
-    #if HARDWARE == EMULATOR
-      //Connected to Relay1 on Emulator.
-    vfnRelayControl(RELAY1, ON);
-    #endif  
     // Application state machine initial state */
     Current_Appl_State = INIT;
     // Calculate spark and fuel modifiers */
@@ -402,12 +350,6 @@ void User_Management(){
         //STOP state
         //Engine is not allowed to run.
         
-        //Display state to user LEDs.
-        #if HARDWARE == EMULATOR
-        LED6 = OFF_STATE;
-        LED7 = OFF_STATE;
-        #endif
-
         //Run fuel pump controller
         Fuel_Pump_Controller();
             
@@ -450,16 +392,6 @@ void User_Management(){
 
           if(SAFETY==0x55){
             //Handle the unsafe condition here.  
-            //We will blink USER LED7 based on the state machine loop time.
-            #if HARDWARE == EMULATOR
-            if(LED7==ON_STATE){
-              //blink off
-              LED7=OFF_STATE;            
-            }else{
-              //blink on
-              LED7=ON_STATE;
-            }
-            #endif
           }
         
         }
@@ -470,11 +402,6 @@ void User_Management(){
         //START state
         //Engine is in the process of starting up. 
         
-        //Display state to the user        
-        #if HARDWARE == EMULATOR
-        LED6 = OFF_STATE;
-        LED7 = ON_STATE;
-        #endif
         //Run fuel pump controller
         Fuel_Pump_Controller();
 
@@ -581,11 +508,6 @@ void User_Management(){
         //RUN state
         //Engine is in the normal process of running.
 
-        //Display state to user.
-        #if HARDWARE == EMULATOR
-        LED6 = ON_STATE;
-        LED7 = OFF_STATE;
-        #endif
         //Run fuel pump controller
         Fuel_Pump_Controller();
 
@@ -711,11 +633,6 @@ void User_Management(){
       //OVERRUN State
       //Engine speed has gone past normal operation.
         
-        //Display state to user.
-        #if HARDWARE == EMULATOR
-        LED6 = ON_STATE;
-        LED7 = ON_STATE;
-        #endif
         //Run fuel pump controller
         Fuel_Pump_Controller();
 
@@ -993,242 +910,6 @@ void Fuel_Pump_Controller(void){
                                    
 }
 
-
-/*******************************************************************************/
-/**
-* \brief    Initialzation of the idle speed motor controller 
-* \author   Jesse Beeker 
-* \param    void
-* \return   void
-*/
-#ifdef ISM
-void Idle_Speed_Controller_Init(){
-
-  //Initialize the low level controller.
-  vfnISM_Init();
-  //Initialize the position control to off using zeroing flag.
-  ISM_ZERO = 0;
-  //Set the range of the ISM to the calibrated value.
-  ISM_RANGE = CAL_ISM_RANGE;   
-  //Set the target idle speed.
-  ISM_TARGET = CAL_ISM_TARGET;
-  //Load starting position value
-  ISM_START = CAL_ISM_START;
-  //Load maximum control point
-  ISM_MAX_CONTROL = CAL_ISM_MAX_CONTROL;
-  //Load maximum control point
-  ISM_MIN_CONTROL = CAL_ISM_MIN_CONTROL;
-  //Load default range adjustment for identification of the first iteration through
-  //the ISM controller. We will use the ISM_RANGE rounded up to the next binary value.
-  ISM_STEP = ISM_RANGE;
-  //Set default step direction variables
-  ISM_LAST_STEP = STAY;
-  ISM_NEXT_STEP = STAY;
-  
-  //Start return to zero process.
-  //Set the idle speed motor position to a known position.
-  //Since no position or stall detection is used, the strategy is to drive 
-  //the motor the full number of steps in its range.  This will get the pintle 
-  //very close to a known position.  For the scooter used in the demo, driving the
-  //pintle to full closed will stall the motor once the mechanical
-  //stop has been reached.  All positions will be based on this known position.
-
-   //Set the current position to the maximum number of steps.
-   u16Current_ISM_Position = ISM_RANGE;
-   //Make a function call to set the position to zero.  
-   vfnSet_ISM_Position(0);
-   //Now the ISM will drive the pintle towards the closed position and hit the 
-   //mechanical stop.  No further call to the position function can be made
-   //until the motor stops.  When ISM_State is STOPPED, then the motor is in a 
-   //known position.  
-
-}
-
-/*******************************************************************************/
-/**
-* \brief    Idle speed motor controller.  Must be called periodically to
-*\          to actively control the idle speed of the engine. 
-* \author   Jesse Beeker 
-* \param    void
-* \return   void
-*/
-void Idle_Speed_Controller(){
-  
-  //The ISM must perform a return to zero function or position commands 
-  //are of no meaning.
-  //Test for return to zero procedure previously completed.
-  if(ISM_ZERO == 1){
-    //Zero function has been completed and position can be controlled
-
-    //Only control the ISM on a periodic basis based on timeout.
-    if(u16ISM_Timeout >= 1){
-      //If timeout has not occurred, do nothing.
-      /* Decrease the timeout counter */
-      u16ISM_Timeout --;
-    }else{
-      //Check for timeout to turn off the fuel pump. 
-      if(u16ISM_Timeout==0){
-        /*Timeout expired. Run ISM controller */
-        ISM_Controller_Run();
-        //Reload loop timer.
-        u16ISM_Timeout = ISM_TOUT;  
-      }
-    }
-    
-  }else if(u16Current_ISM_Position == 0){
-    //Return to zero function has completed.  
-    //Set the position to zero.
-    u16Current_ISM_Position = 0;
-    //Flag zero operating completed.  Allow controller to operate.
-    ISM_ZERO = 1;
-    //Set ISM position to the starting position.
-    vfnSet_ISM_Position(ISM_START);
-  
-  }else{
-    //Just wait for the ISM to zero.
-    //Load the control loop time.
-    u16ISM_Timeout = ISM_TOUT;  
-  
-  }
- 
-}
-
-
-/*******************************************************************************/
-/**
-* \brief    Idle speed motor controller.  Called at a periodic control rate from
-*\          ISM_Controller(), based on ISM_TOUT definition using User Management
-*\          task rate.
-* \author   Jesse Beeker 
-* \param    void
-* \return   void
-*/
-void ISM_Controller_Run(){
-
-  //Temporary variable for pre-calculating a change in the step size.
-  unsigned int u16Temp_STEP;
-  //Temporary variable for calcaulating the desired ISM position
-  unsigned int u16Temp_Position;
-
-    //Control of the idle speed position is based on the a specific target 
-    //engine speed.  If the engine speed is too far away from this target speed,
-    //idle speed motor will adjust.  Idle speed motor control is only performed
-    //when the engine is running and less than a maximum control RPM.  During 
-    //start up, the idle speed motor will be in a default position.  When the 
-    //engine speed and throttle position are above calibrated thresholds, 
-    //the idle speed motor will go to a default posistion in the center of the
-    //pintle's travel. 
-
-    if(Current_Appl_State == RUN){
-      
-      //Idle speed motor can only be controlled in a range of engine speeds when throttle is closed.
-      if((Engine_Speed >= ISM_MAX_CONTROL) && (Engine_Speed <= ISM_MIN_CONTROL) && (TPS_Filtered == TPS_LOW)){
-        
-        
-        //Adjust ISM based on engine speed.
-        if(Engine_Speed < ISM_TARGET){
-          //Engine is too fast.  Provide less air to slow down the engine.
-          ISM_NEXT_STEP = CLOSE;
-              
-        }else if(Engine_Speed > ISM_TARGET){
-          //Engine is too slow.  Provide more air to speed up the engine.
-          ISM_NEXT_STEP = OPEN;
-        }else{
-          //Engine is running at the target speed.  Should not happen but case is covered.
-          ISM_NEXT_STEP = STAY;
-        }
-    
-        //Determine the size of the step to be performed.  
-        //This will depend on the previous and next step direction.
-        
-        if((ISM_NEXT_STEP != ISM_LAST_STEP) && (ISM_LAST_STEP != STAY)){
-          //The last step was too much and we need to zoom in on control gain.
-          //Also you do not want to reduce if you were previously not stepping, STAY.
-          //Reduce the step size by a factor of 2.
-          
-          //Create temporary place holder for decreased step size value.
-          u16Temp_STEP = ISM_STEP >> 1;
-
-          //Make sure it was not accidentally reduced to underflow of 16 bit value
-          if(u16Temp_STEP < ISM_STEP){
-            //Step size can be decreased.
-            ISM_STEP = u16Temp_STEP;
-          }
-          //Else you just keep the step size the same.  Limit is reached.
-
-        }else if((ISM_NEXT_STEP == ISM_LAST_STEP) && (ISM_LAST_STEP != STAY)){
-          //The last step size was not effective and we need more gain.
-          //Also if you were not stepping you need to 
-          //Increase the step size by a factor of 2.
-          
-          //Create temporary place holder for increased step size value.
-          u16Temp_STEP = ISM_STEP << 1;
-          
-          //Make sure it was not accidentally reduced due to overflow of 16 bit value
-          //or that it is not larger than the range.
-          if((u16Temp_STEP < ISM_RANGE) || ((u16Temp_STEP > ISM_STEP))){
-            //Step size can be increased.
-            ISM_STEP = u16Temp_STEP;
-          }
-          //Else you just keep the step size the same.  Limit is reached.
-          
-        }
-        //Else you do not need to change the step size.  
-        //Covers the remaining cases where motor was not stepping, STAY,
-        //in the last step or where it is not going to be stepped for 
-        //the next state, STAY.  
-        
-        //Calculate the next position for the ISM.
-        
-        if(ISM_NEXT_STEP == OPEN){
-          //The next position will go to a higher position.
-          //Add the step to the current position.
-          u16Temp_Position = u16Current_ISM_Position + u16Temp_STEP;
-          //Test to make sure this is a valid position and it is higher than 
-          //the last position, prevent overflow as well.
-          if((u16Temp_Position <= u16Current_ISM_Position)||(u16Temp_Position > ISM_RANGE)){
-            //This step caused an overflow or hit the limit of the range of ISM motion.
-            //Set position to the maximum limit.
-            u16Temp_Position = ISM_RANGE;
-          }
-         
-        }else if(ISM_NEXT_STEP == CLOSE){
-          //The next position will go to a lower position.
-          //Subtract the step to the current position.
-          u16Temp_Position = u16Current_ISM_Position - u16Temp_STEP;
-          //Test to make sure this is a valid position and it is lower than 
-          //the last position, prevent underflow as well.
-          if(u16Temp_Position >= u16Current_ISM_Position){
-            //This step caused an underflow or hit the limit of the range of ISM motion.
-            //Set position to the minimum limit.
-            u16Temp_Position = 0;
-          }
-        
-        }
-        //Else we are at the STAY condition and the ISM position is good.
-        
-        //Set the ISM position
-        vfnSet_ISM_Position(u16Temp_Position);  
-                
-      }else{
-        //Engine is running at a speed/condition that cannot be controlled
-        //Go to default setting of center position.
-        vfnSet_ISM_Position(ISM_RANGE/2);  
-      }
-    
-    }else if(Current_Appl_State == START){
-      //ISM goes to starting position.
-        vfnSet_ISM_Position(ISM_START);            
-    
-    }else{
-      //Engine is running at a speed/condition that cannot be controlled
-      //Go to default setting of center position.
-      vfnSet_ISM_Position(ISM_RANGE/2);      
-    }
-
-}
-
-#endif
 /**************************************************************************/
 
 void Update_Modifiers()
@@ -1493,16 +1174,7 @@ void Load_Calculate()
   //Update the Load value with the latest throttle position.
   LOAD = TPS_Filtered;
   
-     
-  /* Move stepper control accordingly to engine load */
-  
-  //Set motor to fully closed 
-  //value of 500 steps works to full close
-  //vfnSet_ISM_Position(500);
-    //Idle_Speed_Controller();
-
 #endif
-
 
 }
 

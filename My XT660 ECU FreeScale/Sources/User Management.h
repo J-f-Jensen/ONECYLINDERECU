@@ -54,7 +54,6 @@ Freescale Confidential Proprietary
 #define Conv_Period_to_RPM(Period)    (Period +1); 
 
 //User Management Functions
-//User Management Functions
 //Default configuration and variable initialization
 void User_Management_Init(void);
 
@@ -76,11 +75,6 @@ void MIL_Clear(void);
 //Fuel pump controller functions
 void Fuel_Pump_Controller_Init(void);
 void Fuel_Pump_Controller(void);
-
-//Idle speed motor control functions
-void Idle_Speed_Controller_Init(void);
-void Idle_Speed_Controller(void);
-void ISM_Controller_Run(void);
 
 //Injection and ignition fault functions
 unsigned char Get_Injector1_Fault(void);
