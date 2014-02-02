@@ -194,14 +194,14 @@ void (* near const vectors[])(void) @ 0xFF10 =  {
   Dummy_D_Isr,        /* 0x6E  0xFFDC ivVtimpaaovf    */
   Dummy_D_Isr,        /* 0x6F  0xFFDE ivVtimovf       */
   Dummy_D_Isr,        /* 0x70  0xFFE0 ivVtimch7       */
-  Dummy_D_Isr,        /* 0x71  0xFFE2 ivVtimch6       */
-  Crank_Missing_Tooth_Isr,        /* 0x72  0xFFE4 ivVtimch5       */
+  Fuel1_Control_Isr,  /* 0x71  0xFFE2 ivVtimch6       */
+  Crank_Missing_Tooth_Isr,  /* 0x72  0xFFE4 ivVtimch5       */
   Crank_Timeout_Isr,        /* 0x73  0xFFE6 ivVtimch4       */    
-  Dummy_D_Isr,         /* 0x74  0xFFE8 ivVtimch3       */
-  Spark1_Control_Isr, /* 0x75  0xFFEA ivVtimch2       */
+  Spark1_Control_Isr,       /* 0x74  0xFFE8 ivVtimch3       */
+  Dummy_D_Isr,              /* 0x75  0xFFEA ivVtimch2       */ // Will be used to mesure speed
   Crank_State_Machine_Isr,  /* 0x76  0xFFEC ivVtimch1       */
-  Fuel1_Control_Isr,  /* 0x77  0xFFEE ivVtimch0       */
-  Scheduler_RTI_Isr,        /* 0x78  0xFFF0 ivVrti          */
+  Dummy_D_Isr,        /* 0x77  0xFFEE ivVtimch0       */
+  Scheduler_RTI_Isr,  /* 0x78  0xFFF0 ivVrti          */
   Dummy_D_Isr,        /* 0x79  0xFFF2 ivVirq          */
   Dummy_D_Isr,        /* 0x7A  0xFFF4 ivVxirq         */
   Dummy_D_Isr,        /* 0x7B  0xFFF6 ivVswi          */

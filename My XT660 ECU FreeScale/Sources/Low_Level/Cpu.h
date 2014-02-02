@@ -61,9 +61,9 @@ Freescale Confidential Proprietary
 
 /** System clock related macros */
 /* BUS_FREQ = XTAL_FREQ * (SYNR+1) / ((REFDV+1)(2*POSTDIV))       */
-#define POSTDIV_VALUE   (POSTDIV_FACTOR-1)
-#define SYNR_VALUE      (SYNR_FACTOR-1)
-#define REFDV_VALUE     ((XTAL_FREQ*SYNR_FACTOR/BUS_FREQ)-1) 
+//#define POSTDIV_VALUE   (POSTDIV_FACTOR-1)
+//#define SYNR_VALUE      (SYNR_FACTOR-1)
+//#define REFDV_VALUE     ((XTAL_FREQ*SYNR_FACTOR/BUS_FREQ)-1) 
  
 /** System Clock status definitions */      
 #define CLOCK_STATUS_OK                 0

@@ -95,6 +95,9 @@ UINT8 gu8SleepModeEnabled;
     
     /* Start execution of task scheduler */
     vfnScheduler_Start(); 
+    
+// Only while debugging
+//    _DISABLE_COP();
               
     /* Initialization complete, enable interrupts */
     ENABLE_INTERRUPTS();            
@@ -102,6 +105,7 @@ UINT8 gu8SleepModeEnabled;
     /*-- While Power-savings mode is NOT requested --*/
     while (gu8SleepModeEnabled == 0)
     {
+// Only while debugging - need to find the right place for this. Maybe in the 1ms task?
         _FEED_COP(); /* feeds the dog */
 
         /* Execute Multi-thread round robin task scheduler */

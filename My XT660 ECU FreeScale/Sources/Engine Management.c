@@ -497,7 +497,7 @@ UINT16 u16Calc_Spark_Start(UINT16 u16RPM, UINT16 u16LOAD, UINT16 u16Ref_Angle_2C
     #ifdef TWO_STROKES
     //Test to see if angle will under flow when we compensate for the 
     //reference angle of TDC.
-    if((u16Ref_Angle_2C >= u16Spark_Start_Angle){
+    if(u16Ref_Angle_2C >= u16Spark_Start_Angle){
       //The reference angle is greater than the loop up value.
       //Simply subtract the look up angle from the reference angle.
       u16Spark_Start_Angle = u16Ref_Angle_2C - u16Spark_Start_Angle;

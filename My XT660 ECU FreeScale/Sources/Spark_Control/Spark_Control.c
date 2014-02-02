@@ -130,12 +130,12 @@ void vfnSet_Spark_Controller(UINT8 u8State_Request)
 {  
     if((u8State_Request == ENABLED) && (u8Spark_Controller_Mode == OFF))
     {
-        /* Channel 2 enabled as output compare for spark 1 generation */            
+        /* Channel 3 enabled as output compare for spark 1 generation */            
         // Not supported in S12T64 OCPD_OCPD2 = 0;
-        TIOS_IOS2 = 1;     
-        TCTL2_OM2 = 1;             
-        TCTL2_OL2 = 0;      /* Clear on output compare event */          
-        CFORC_FOC2 = 1;     /* Force output event */
+        TIOS_IOS3 = 1;     
+        TCTL2_OM3 = 1;             
+        TCTL2_OL3 = 0;      /* Clear on output compare event */          
+        CFORC_FOC3 = 1;     /* Force output event */
                       
                       
         #ifdef TWO_CYLINDER
@@ -181,9 +181,9 @@ void vfnDisable_Spark1_Timer(void)
     
     /* Channel 2 disconnected from output compare module */             
     // Not supported in S12T64 OCPD_OCPD2 = 1;
-    TCTL2_OM2 = 0;  /* Used instead of OCPD_OCPD2 = 1; */                  
-    TCTL2_OL2 = 0;  /* Used instead of OCPD_OCPD2 = 1; */ 
-    TIOS_IOS2 = 0; 
+    TCTL2_OM3 = 0;  /* Used instead of OCPD_OCPD2 = 1; */                  
+    TCTL2_OL3 = 0;  /* Used instead of OCPD_OCPD2 = 1; */ 
+    TIOS_IOS3 = 0; 
        
     /* Spark coil 1 turned off */
     IGNIN1 = OFF;

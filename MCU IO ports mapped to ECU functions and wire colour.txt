@@ -18,7 +18,7 @@ PA2 - 47 = (L/R) Fuel pump/inj relay
 PB0 - 20 = (L/B) Input from Fuel inj. relay (19) (L/Y)
 PB1 - 21 = (L/W) Input Start switch signal (LOW when active)
 
-PB4 - 24 = (B/Y) Input - Relay to start switch - (there must be an output leg to?)
+PB4 - 24 = (B/Y) Input - Relay to start switch - (are there an output leg to?)
 PB5 - 25 = (P) Output - O2 Heater
 
 PT0/IOC0 - 79 = GND

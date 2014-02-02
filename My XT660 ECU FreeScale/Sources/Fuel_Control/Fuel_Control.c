@@ -184,12 +184,12 @@ void vfnDisable_Fuel1_Timer(void)
     /* Interrupt disabled */
     FUEL_PULSE1_INTERRUPT(DISABLED);     
     
-    /* Channel 0 disconnected from output compare module */             
+    /* Channel 6 disconnected from output compare module */             
     // Not supported in S12T64 OCPD_OCPD0 = 1;
     TCTL1_OM6 = 0;  /* Used instead of OCPD_OCPD0 = 1; */  
     TCTL1_OL6 = 0;  /* Used instead of OCPD_OCPD0 = 1; */
     
-    TIOS_IOS0 = 0; 
+    TIOS_IOS6 = 0; 
     
     /* Fuel injector turned off */
     INJIN1 = OFF;

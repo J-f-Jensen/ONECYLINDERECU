@@ -67,7 +67,7 @@ Freescale Confidential Proprietary
 /** Idle speed stepper motor control function prototypes */
 #include "Idle_Speed_Control.h"
 /** PWM for crank motor function prototypes */
-#include "PWM.h"
+//#include "PWM.h"
 
 #include "User Management.h"
 #include "Data Management.h"
@@ -106,9 +106,10 @@ extern INT8 ai8TempBuffer[4];
 }
 /* List of tasks to be executed @ 50ms */
 #define EXECUTE_50MS_TASKS()    \
-{                               \
-    vfn_Update_Crank_Speed();   \
-}
+    {;}
+//{                               \
+//    vfn_Update_Crank_Speed();   \ //PWM control used in demo
+//}
 /* List of tasks to be executed @ 100ms */
 #ifdef __EMULATOR_HARDWARE_FIRMWARE
     #define EXECUTE_100MS_TASKS()   \

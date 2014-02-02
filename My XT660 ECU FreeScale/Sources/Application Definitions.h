@@ -75,8 +75,8 @@ Freescale Confidential Proprietary
   //#define TWO_CYLINDER
 
   //Mode of operation.  Choose one.
-  //#define TWO_STROKES
-  #define FOUR_STROKES
+  #define TWO_STROKES
+  //#define FOUR_STROKES
 
   //Specify how many teeth are on the flywheel including missing teeth.
   #define NUMBER_OF_TEETH 12
@@ -148,15 +148,15 @@ Freescale Confidential Proprietary
 //Set the engine running parameters
 //Engine running parameters
 //Minimum engine speed that defines the engine as running.
-//This is tooth period counts based on 1.6us timer tic.
+//This is tooth period counts based on 2us timer tic.
 #define Stall_Speed 6250 // 500 RPM
 
 //Maximum engine speed that defines overrunning.
-//This is tooth period counts based on 1.6us timer tic.
+//This is tooth period counts based on 2us timer tic.
 #define Over_Speed 391   // 8000 RPM
 
 //Engine speed required to recover from an over speed condition
-//This is tooth period counts based on 1.6us timer tic.
+//This is tooth period counts based on 2us timer tic.
 #define Over_Speed_Recovery 416 //7500 RPM
    
    

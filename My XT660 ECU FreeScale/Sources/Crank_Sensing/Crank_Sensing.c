@@ -116,6 +116,7 @@ UINT8 Signature_Valid;
 
 /** Engine speed (RPM) */
 extern unsigned int Engine_Speed;
+
 /** Load */
 extern unsigned int LOAD;
 
@@ -138,10 +139,10 @@ void vfnInit_Crank_Sensing(void)
 {   
     vfnTimerModule_Init(PREESCALER_VALUE);
     
-     /* Channel 1 as input capture for crankshaft tooth edge detection */ 
+     /* Channel 1 (B) as input capture for crankshaft tooth edge detection */ 
     TIOS_IOS1 = 0;
                               
-    /* Channel 5 as output compare for missing tooth interrupt generation */
+    /* Channel 5 (F) as output compare for missing tooth interrupt generation */
     TIOS_IOS5 = 1;
     
 // Not supported in S12T64
@@ -152,7 +153,7 @@ void vfnInit_Crank_Sensing(void)
     TCTL1_OL5 = 0;
     
     
-    /* Channel 4 as output compare for timeout interrupt */
+    /* Channel 4 (E) as output compare for timeout interrupt */
     TIOS_IOS4 = 1;
      
 // Not supported in S12T64

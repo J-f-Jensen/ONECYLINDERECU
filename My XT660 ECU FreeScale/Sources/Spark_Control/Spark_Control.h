@@ -87,14 +87,14 @@ Freescale Confidential Proprietary
 
 
 /** Timer channel assigned to spark pulse 1 */
-#define SPARK_PULSE1_TIMER                  TIMER_CHANNEL_C     
+#define SPARK_PULSE1_TIMER                  TIMER_CHANNEL_D     
 /** Timer channel interrupt enable/disable */      
-#define SPARK_PULSE1_INTERRUPT(SELECTOR)    CHANNEL_C_INTERRUPT(SELECTOR)
+#define SPARK_PULSE1_INTERRUPT(SELECTOR)    CHANNEL_D_INTERRUPT(SELECTOR)
 /* Set output on compare event for timer channel */   
-#define SET_SPARK1_ON_NEXT_STATE()          SET_ON_COMPARE_EVENT_C()
-#define CLEAR_SPARK1_ON_NEXT_STATE()        CLEAR_ON_COMPARE_EVENT_C()
+#define SET_SPARK1_ON_NEXT_STATE()          SET_ON_COMPARE_EVENT_D()
+#define CLEAR_SPARK1_ON_NEXT_STATE()        CLEAR_ON_COMPARE_EVENT_D()
 /** Force compare event */
-#define SPARK1_FORCE_EVENT()                CHANNEL_C_FORCE_EVENT()  
+#define SPARK1_FORCE_EVENT()                CHANNEL_D_FORCE_EVENT()  
 
 #ifdef TWO_CYLINDER
 /** Timer channel assigned to spark pulse 2 */

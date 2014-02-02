@@ -131,7 +131,7 @@ Freescale Confidential Proprietary
 /* ~~~~~~~~ Digital Input signal mapping ~~~~~~~~~~~~~~~~~ */
 
 /** VRSOUT1, Port T, Channel 1 */
-#define     VRSOUT1     ((UINT16)PTT_PTT1   * 0xffff)
+#define     VRSOUT1     ((UINT16)sPTT_sPTT1   * 0xffff)
 /** VRSOUT2, Port T, Channel 7 */
 // Not used #define     VRSOUT2     ((UINT16)PTT_PTT7   * 0xffff)
 /** OPSR_F, Port B, Channel 0 */
